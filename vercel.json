@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/prayer-times",
+      "destination": "https://tawqit-api-1078926607042.europe-west1.run.app/api/prayer-times"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/data/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800" }
+      ]
+    }
+  ]
+}

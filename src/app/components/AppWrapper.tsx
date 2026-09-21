@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar } from './Navbar';
 import { Hero } from './Hero';
+import { PrayerTimes } from './PrayerTimes';
 import { Features } from './Features';
 import { AppPreview } from './AppPreview';
 import { Methods } from './Methods';
@@ -27,6 +28,13 @@ export function AppWrapper({ darkMode, setDarkMode }: AppWrapperProps) {
           <SectionBackground variant="violet">
             <section id="hero">
               <Hero darkMode={darkMode} />
+            </section>
+          </SectionBackground>
+
+          {/* HORAIRES PAR VILLE - Violet */}
+          <SectionBackground variant="violet">
+            <section id="horaires">
+              <PrayerTimes />
             </section>
           </SectionBackground>
 

@@ -24,6 +24,15 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  // En prod, vercel.json fait le même rewrite (appel same-origin, pas de CORS).
+  server: {
+    proxy: {
+      '/api/prayer-times': {
+        target: 'https://tawqit-api-1078926607042.europe-west1.run.app',
+        changeOrigin: true,
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src/app'),

@@ -14,6 +14,7 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
   const { language, setLanguage, t } = useLanguage();
 
   const navLinks = [
+    { label: t('prayerTimesNav'), href: '#horaires' },
     { label: t('features'), href: '#fonctionnalites' },
     { label: t('preview'), href: '#apercu' },
     { label: t('methods'), href: '#methodes' },
@@ -48,12 +49,12 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-white/80 hover:text-white text-sm font-['CormorantSC-Medium'] transition-colors"
+                className="text-white/80 hover:text-white text-sm font-['CormorantSC-Medium'] transition-colors whitespace-nowrap"
               >
                 {link.label}
               </a>
