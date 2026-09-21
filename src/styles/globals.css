@@ -1,5 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
+/* Polices de l'app Tawqit, servies depuis /public/fonts (mêmes noms que dans les classes font-['…']) */
+@font-face {
+  font-family: 'CormorantSC-Bold';
+  src: url('/fonts/CormorantSC-Bold.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CormorantSC-Light';
+  src: url('/fonts/CormorantSC-Light.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CormorantSC-Medium';
+  src: url('/fonts/CormorantSC-Medium.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CormorantSC-Regular';
+  src: url('/fonts/CormorantSC-Regular.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  /* Tailwind convertit le « _ » de font-['adobe-devanagari_844'] en espace */
+  font-family: 'adobe-devanagari 844';
+  src: url('/fonts/adobe-devanagari_844.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Against-Regular';
+  src: url('/fonts/Against-Regular.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {

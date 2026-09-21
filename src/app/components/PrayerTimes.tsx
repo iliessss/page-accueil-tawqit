@@ -255,7 +255,7 @@ export function PrayerTimes() {
   const listId = 'pt-city-list';
 
   return (
-    <div className="py-24 lg:py-32 relative">
+    <div className="pt-14 pb-20 lg:pt-20 lg:pb-24 relative">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-24">
         {/* Header */}
         <motion.div
@@ -336,7 +336,7 @@ export function PrayerTimes() {
               type="button"
               onClick={locate}
               disabled={locating}
-              className="h-14 px-6 rounded-2xl bg-[#F9DACA] text-[#2C2A5A] font-['CormorantSC-Bold'] text-base flex items-center justify-center gap-2 hover:bg-white transition-colors shadow-xl disabled:opacity-60"
+              className="h-14 px-6 rounded-2xl bg-[#F9DACA] text-[#2C2A5A] font-['adobe-devanagari_844'] text-base flex items-center justify-center gap-2 hover:bg-white transition-colors shadow-xl disabled:opacity-60"
             >
               {locating ? <Loader2 className="w-5 h-5 animate-spin" /> : <LocateFixed className="w-5 h-5" />}
               {t('ptLocate')}
@@ -375,9 +375,9 @@ export function PrayerTimes() {
             <div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-6 h-6 text-[#F9DACA] shrink-0" />
-                <h3 className="font-['CormorantSC-Bold'] text-3xl lg:text-4xl text-white tracking-wide">
+                <h3 className="font-['adobe-devanagari_844'] text-3xl lg:text-4xl text-white tracking-wide">
                   {city.name}
-                  <span className="font-['CormorantSC-Regular'] text-white/50 text-2xl lg:text-3xl"> · {city.country}</span>
+                  <span className="font-['adobe-devanagari_844'] text-white/50 text-2xl lg:text-3xl"> · {city.country}</span>
                 </h3>
               </div>
               <p className="font-['adobe-devanagari_844'] text-lg text-white/70 mt-2">
@@ -391,7 +391,7 @@ export function PrayerTimes() {
                 <p className="font-['adobe-devanagari_844'] text-white/60 text-base">
                   {t('nextPrayer')} · <span className="text-[#F9DACA]">{t(next.label)}</span>
                 </p>
-                <p className="font-['CormorantSC-Bold'] text-4xl lg:text-5xl text-white tabular-nums tracking-wider">
+                <p className="font-['adobe-devanagari_844'] text-4xl lg:text-5xl text-white tabular-nums tracking-wider">
                   {formatCountdown(next.remaining)}
                 </p>
               </div>
@@ -404,7 +404,7 @@ export function PrayerTimes() {
               <button
                 type="button"
                 onClick={() => setReloadKey((k) => k + 1)}
-                className="px-6 py-3 rounded-2xl bg-white/20 text-white font-['CormorantSC-Bold'] hover:bg-white/30 transition-colors border border-white/30"
+                className="px-6 py-3 rounded-2xl bg-white/20 text-white font-['adobe-devanagari_844'] hover:bg-white/30 transition-colors border border-white/30"
               >
                 {t('ptRetry')}
               </button>
@@ -429,8 +429,8 @@ export function PrayerTimes() {
                           : 'bg-transparent border-white/10 text-white/70'
                     }`}
                   >
-                    <p className="font-['CormorantSC-Medium'] text-lg tracking-wide opacity-80">{t(r.label)}</p>
-                    <p className="font-['CormorantSC-Bold'] text-3xl lg:text-4xl tabular-nums mt-1">
+                    <p className="font-['adobe-devanagari_844'] text-lg tracking-wide opacity-80">{t(r.label)}</p>
+                    <p className="font-['adobe-devanagari_844'] text-3xl lg:text-4xl tabular-nums mt-1">
                       {day?.times[r.key] || '--:--'}
                     </p>
                   </div>

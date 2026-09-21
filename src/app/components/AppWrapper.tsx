@@ -24,17 +24,17 @@ export function AppWrapper({ darkMode, setDarkMode }: AppWrapperProps) {
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         
         <main>
-          {/* HERO - Violet */}
-          <SectionBackground variant="violet">
-            <section id="hero">
-              <Hero darkMode={darkMode} />
-            </section>
-          </SectionBackground>
-
           {/* HORAIRES PAR VILLE - Violet */}
           <SectionBackground variant="violet">
             <section id="horaires">
               <PrayerTimes />
+            </section>
+          </SectionBackground>
+
+          {/* HERO - Violet */}
+          <SectionBackground variant="violet">
+            <section id="hero">
+              <Hero darkMode={darkMode} />
             </section>
           </SectionBackground>
 
