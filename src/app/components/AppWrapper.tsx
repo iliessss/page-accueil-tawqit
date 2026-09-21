@@ -31,6 +31,8 @@ export function AppWrapper({ darkMode, setDarkMode }: AppWrapperProps) {
             </section>
           </SectionBackground>
 
+          <SectionSeparator variant="curve" color="rose" position="bottom" />
+
           {/* HERO - Violet */}
           <SectionBackground variant="violet">
             <section id="hero">
