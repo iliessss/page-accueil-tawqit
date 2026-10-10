@@ -72,9 +72,9 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-5 py-2.5 rounded-full border-2 border-[#F9DACA]/70 text-[#F9DACA] hover:bg-[#F9DACA]/15 font-['CormorantSC-Bold'] font-semibold text-sm leading-tight transition-all flex items-center gap-2 whitespace-nowrap"
+              className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#F6C453] to-[#E89A3C] hover:from-[#FFD36A] hover:to-[#F2A94A] text-[#2C2A5A] font-['CormorantSC-Bold'] font-semibold text-sm leading-tight transition-all flex items-center gap-2 whitespace-nowrap shadow-lg shadow-[#E89A3C]/40 ring-2 ring-white/30"
             >
-              <Heart className="w-4 h-4" fill="currentColor" />
+              <Heart className="w-4 h-4 text-[#C24A4A]" fill="currentColor" />
               {t('donate')}
             </motion.a>
             <button
@@ -151,9 +151,9 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
                 href={DONATE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 px-6 py-3 rounded-full border-2 border-[#F9DACA]/70 text-[#F9DACA] text-center font-['CormorantSC-Bold'] font-semibold flex items-center justify-center gap-2"
+                className="mt-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#F6C453] to-[#E89A3C] text-[#2C2A5A] text-center font-['CormorantSC-Bold'] font-semibold flex items-center justify-center gap-2 shadow-lg shadow-[#E89A3C]/40"
               >
-                <Heart className="w-4 h-4" fill="currentColor" />
+                <Heart className="w-4 h-4 text-[#C24A4A]" fill="currentColor" />
                 {t('donate')}
               </a>
               <div className="flex gap-3 pt-4">
