@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Heart } from 'lucide-react';
 import { BrandLockup } from './BrandLockup';
 import { useLanguage } from './LanguageContext';
 
@@ -21,8 +21,7 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
     { label: t('preview'), href: '#apercu' },
     { label: t('methods'), href: '#methodes' },
     { label: t('about'), href: '#qui-sommes-nous' },
-    { label: t('faq'), href: '#faq' },
-    { label: t('donate'), href: DONATE_URL, external: true }
+    { label: t('faq'), href: '#faq' }
   ];
 
   return (
@@ -67,6 +66,17 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
 
           {/* CTA + Dark Mode Toggle */}
           <div className="hidden lg:flex items-center gap-4">
+            <motion.a
+              href={DONATE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-5 py-2.5 rounded-full border-2 border-[#F9DACA]/70 text-[#F9DACA] hover:bg-[#F9DACA]/15 font-['CormorantSC-Bold'] font-semibold text-sm leading-tight transition-all flex items-center gap-2 whitespace-nowrap"
+            >
+              <Heart className="w-4 h-4" fill="currentColor" />
+              {t('donate')}
+            </motion.a>
             <button
               onClick={() => setDarkMode(!darkMode)}
               className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
@@ -137,6 +147,15 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
                   {link.label}
                 </a>
               ))}
+              <a
+                href={DONATE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 px-6 py-3 rounded-full border-2 border-[#F9DACA]/70 text-[#F9DACA] text-center font-['CormorantSC-Bold'] font-semibold flex items-center justify-center gap-2"
+              >
+                <Heart className="w-4 h-4" fill="currentColor" />
+                {t('donate')}
+              </a>
               <div className="flex gap-3 pt-4">
                 <a
                   href="https://apps.apple.com/fr/app/tawqit/id6758964906"
