@@ -108,7 +108,7 @@ export function FAQ() {
             Vous avez d'autres questions ?
           </p>
           <motion.a
-            href="mailto:support@tawqit.app"
+            href="mailto:contact@tawqit.org"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-block px-8 py-4 border-2 border-[#2C2A5A]/30 text-[#2C2A5A] rounded-2xl font-['CormorantSC-Bold'] hover:bg-[#2C2A5A]/5 transition-all tracking-wide"

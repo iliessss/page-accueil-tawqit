@@ -28,7 +28,7 @@ export function Footer({ darkMode = false }: FooterProps) {
     legal: [
       { label: t('privacy'), href: '#' },
       { label: t('terms'), href: '#' },
-      { label: t('contactLink'), href: '#' }
+      { label: t('contactLink'), href: 'mailto:contact@tawqit.org' }
     ]
   };
 
