@@ -4,6 +4,8 @@ import { Menu, X, Globe } from 'lucide-react';
 import { BrandLockup } from './BrandLockup';
 import { useLanguage } from './LanguageContext';
 
+const DONATE_URL = 'https://donorbox.org/tawqit';
+
 interface NavbarProps {
   darkMode: boolean;
   setDarkMode: (value: boolean) => void;
@@ -19,7 +21,8 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
     { label: t('preview'), href: '#apercu' },
     { label: t('methods'), href: '#methodes' },
     { label: t('about'), href: '#qui-sommes-nous' },
-    { label: t('faq'), href: '#faq' }
+    { label: t('faq'), href: '#faq' },
+    { label: t('donate'), href: DONATE_URL, external: true }
   ];
 
   return (
@@ -54,6 +57,7 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
               <a
                 key={link.label}
                 href={link.href}
+                {...(link.external && { target: '_blank', rel: 'noopener noreferrer' })}
                 className="text-white/80 hover:text-white text-sm font-['CormorantSC-Medium'] transition-colors whitespace-nowrap"
               >
                 {link.label}
@@ -126,6 +130,7 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
                 <a
                   key={link.label}
                   href={link.href}
+                  {...(link.external && { target: '_blank', rel: 'noopener noreferrer' })}
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-white/80 hover:text-white font-['CormorantSC-Medium'] transition-colors"
                 >

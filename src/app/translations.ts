@@ -136,6 +136,8 @@ export const translations = {
 
     // Horaires par ville
     prayerTimesNav: "Horaires",
+    donate: "Soutenir",
+    donateFooter: "Faire un don",
     ptTitle: "Les horaires de prière de votre ville",
     ptSubtitle: "Recherchez n'importe quelle ville : les horaires du jour sont calculés par le moteur astronomique Tawqit, le même que dans l'application.",
     ptSearchPlaceholder: "Rechercher une ville…",
@@ -288,6 +290,8 @@ export const translations = {
 
     // Prayer times by city
     prayerTimesNav: "Prayer times",
+    donate: "Support us",
+    donateFooter: "Donate",
     ptTitle: "Prayer times for your city",
     ptSubtitle: "Search for any city: today's times are computed by the Tawqit astronomical engine, the same one used in the app.",
     ptSearchPlaceholder: "Search for a city…",

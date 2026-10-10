@@ -22,7 +22,8 @@ export function Footer({ darkMode = false }: FooterProps) {
     ressources: [
       { label: t('faq'), href: '#faq' },
       { label: t('methods'), href: '#methodes' },
-      { label: t('support'), href: '#' }
+      { label: t('support'), href: '#' },
+      { label: t('donateFooter'), href: 'https://donorbox.org/tawqit', external: true }
     ],
     legal: [
       { label: t('privacy'), href: '#' },
@@ -92,6 +93,7 @@ export function Footer({ darkMode = false }: FooterProps) {
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    {...(link.external && { target: '_blank', rel: 'noopener noreferrer' })}
                     className="font-['adobe-devanagari_844'] text-white/70 hover:text-white transition-colors"
                   >
                     {link.label}
