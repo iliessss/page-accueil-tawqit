@@ -67,7 +67,7 @@ function todayYear(timezone: string): string {
   return new Intl.DateTimeFormat('en', { timeZone: timezone, year: 'numeric' }).format(new Date());
 }
 
-const toSeconds = (hhmm: string): number | null => {
+const toSeconds = (hhmm: string | null): number | null => {
   const m = /^(\d{1,2}):(\d{2})$/.exec(hhmm ?? '');
   return m ? Number(m[1]) * 3600 + Number(m[2]) * 60 : null;
 };

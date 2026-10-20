@@ -83,13 +83,14 @@ const DEFAULT_ANGLES: CountryAngles = { fajr: -18, isha: -17 };
 export interface PrayerDay {
   date: string;
   hijri: { day: number; month: number; year: number };
+  /** `null` quand l'horaire n'existe pas ce jour-là (hautes latitudes). */
   times: {
-    fajr: string;
-    sunrise: string;
-    dhuhr: string;
-    asr: string;
-    maghrib: string;
-    isha: string;
+    fajr: string | null;
+    sunrise: string | null;
+    dhuhr: string | null;
+    asr: string | null;
+    maghrib: string | null;
+    isha: string | null;
   };
   hanafiAsr: boolean;
   angles: { fajr: number; isha: number | null; ishaMinutesAfterMaghrib?: number };
@@ -116,7 +117,13 @@ export function nowIn(timezone: string): string {
   }).format(new Date());
 }
 
-function buildParams(city: CityHit, date: string): URLSearchParams {
+/**
+ * `polarRules` : règles des hautes latitudes = défauts de l'app mobile
+ * (app_state.dart). Sans elles l'API laisse Fajr/Icha vides quand l'angle
+ * n'est jamais atteint (Paris en juin). L'affichage du jour les applique ;
+ * l'export calendrier non (cases vides, à la charge de la mosquée).
+ */
+function buildParams(city: CityHit, date: string, polarRules: boolean): URLSearchParams {
   const angles = COUNTRY_ANGLES[city.countryCode] ?? DEFAULT_ANGLES;
   const params = new URLSearchParams({
     latitude: String(city.latitude),
@@ -124,12 +131,12 @@ function buildParams(city: CityHit, date: string): URLSearchParams {
     timezone: city.timezone,
     date,
     fajrAngle: String(angles.fajr),
-    // Règles des hautes latitudes = défauts de l'app mobile (app_state.dart) :
-    // sans elles l'API renvoie un Fajr/Icha vide à Paris en juin (18° jamais atteint).
-    polarRule: 'astronomicalMiddleNight',
-    polarRuleHorizon: 'nearestCity',
-    polarNightRule: 'noonForSunriseAsrMaghrib',
   });
+  if (polarRules) {
+    params.set('polarRule', 'astronomicalMiddleNight');
+    params.set('polarRuleHorizon', 'nearestCity');
+    params.set('polarNightRule', 'noonForSunriseAsrMaghrib');
+  }
   if (angles.isha !== null) params.set('ishaAngle', String(angles.isha));
   if (angles.ishaMinutesAfterMaghrib) {
     params.set('ishaMinutesAfterMaghrib', String(angles.ishaMinutesAfterMaghrib));
@@ -137,11 +144,16 @@ function buildParams(city: CityHit, date: string): URLSearchParams {
   return params;
 }
 
-async function fetchDate(city: CityHit, date: string, signal?: AbortSignal): Promise<PrayerDay> {
+async function fetchDate(
+  city: CityHit,
+  date: string,
+  polarRules: boolean,
+  signal?: AbortSignal,
+): Promise<PrayerDay> {
   const angles = COUNTRY_ANGLES[city.countryCode] ?? DEFAULT_ANGLES;
   const hanafiAsr = HANAFI_ASR.has(city.countryCode);
 
-  const res = await fetch(`/api/prayer-times?${buildParams(city, date)}`, { signal });
+  const res = await fetch(`/api/prayer-times?${buildParams(city, date, polarRules)}`, { signal });
   if (!res.ok) throw new Error(`API ${res.status}`);
   const json = await res.json();
   const t = json.times;
@@ -164,7 +176,7 @@ async function fetchDate(city: CityHit, date: string, signal?: AbortSignal): Pro
 }
 
 export function fetchPrayerDay(city: CityHit, signal?: AbortSignal): Promise<PrayerDay> {
-  return fetchDate(city, todayIn(city.timezone), signal);
+  return fetchDate(city, todayIn(city.timezone), true, signal);
 }
 
 const pad2 = (n: number) => String(n).padStart(2, '0');
@@ -193,7 +205,7 @@ export async function fetchPrayerYear(
     while (next < dates.length) {
       const i = next++;
       const { m, iso } = dates[i];
-      months[m - 1][dates[i].d - 1] = await fetchDate(city, iso, signal);
+      months[m - 1][dates[i].d - 1] = await fetchDate(city, iso, false, signal);
       onProgress?.(++done / dates.length);
     }
   };

@@ -7,9 +7,11 @@ import { buildZip } from './zip';
 const HEADER = 'Day,Fajr,Shuruk,Duhr,Asr,Maghrib,Isha';
 
 export function monthCsv(days: PrayerDay[]): string {
+  // Horaire inexistant (Fajr/Icha d'été aux hautes latitudes) → case vide.
+  const cell = (v: string | null) => v ?? '';
   const lines = days.map((d, i) => {
     const t = d.times;
-    return `${i + 1},${t.fajr},${t.sunrise},${t.dhuhr},${t.asr},${t.maghrib},${t.isha}`;
+    return [i + 1, t.fajr, t.sunrise, t.dhuhr, t.asr, t.maghrib, t.isha].map((v) => (typeof v === 'number' ? v : cell(v))).join(',');
   });
   return [HEADER, ...lines].join('\n') + '\n';
 }

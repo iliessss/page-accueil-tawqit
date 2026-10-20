@@ -160,7 +160,7 @@ export const translations = {
     ptExportYear: "Année",
     ptExportButton: "Télécharger le calendrier annuel (CSV)",
     ptExportProgress: "Calcul en cours…",
-    ptExportHint: "Fichier zip de 12 fichiers CSV (un par mois), au format importable dans Mawaqit (Calcul → Calendrier).",
+    ptExportHint: "Fichier zip de 12 fichiers CSV (un par mois), au format importable dans Mawaqit (Calcul → Calendrier). Fajr/Icha restent vides les jours où l'angle n'est pas atteint (été, hautes latitudes).",
     ptExportError: "Le téléchargement a échoué. Réessayez dans un instant.",
   },
   en: {
@@ -319,7 +319,7 @@ export const translations = {
     ptExportYear: "Year",
     ptExportButton: "Download yearly calendar (CSV)",
     ptExportProgress: "Computing…",
-    ptExportHint: "Zip of 12 CSV files (one per month), ready to import into Mawaqit (Calculation → Calendar).",
+    ptExportHint: "Zip of 12 CSV files (one per month), ready to import into Mawaqit (Calculation → Calendar). Fajr/Isha are left blank on days the angle is never reached (summer, high latitudes).",
     ptExportError: "Download failed. Please try again in a moment.",
   },
 };
