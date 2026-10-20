@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { Search, LocateFixed, MapPin, Loader2 } from 'lucide-react';
+import { Search, LocateFixed, MapPin, Loader2, Download } from 'lucide-react';
 import { useLanguage } from './LanguageContext';
 import type { TranslationKey } from '../translations';
-import { CityHit, PrayerDay, fetchPrayerDay, nearestCity, searchCities } from '../lib/prayerApi';
+import { CityHit, PrayerDay, fetchPrayerDay, fetchPrayerYear, nearestCity, searchCities } from '../lib/prayerApi';
+import { downloadBlob, mawaqitFileName, mawaqitZip } from '../lib/mawaqitCsv';
 
 const STORAGE_KEY = 'tawqit.city';
 
@@ -61,6 +62,11 @@ function secondsOfDayIn(timezone: string): number {
   return get('hour') * 3600 + get('minute') * 60 + get('second');
 }
 
+/** Année courante dans le fuseau de la ville. */
+function todayYear(timezone: string): string {
+  return new Intl.DateTimeFormat('en', { timeZone: timezone, year: 'numeric' }).format(new Date());
+}
+
 const toSeconds = (hhmm: string): number | null => {
   const m = /^(\d{1,2}):(\d{2})$/.exec(hhmm ?? '');
   return m ? Number(m[1]) * 3600 + Number(m[2]) * 60 : null;
@@ -88,6 +94,10 @@ export function PrayerTimes() {
   const [notice, setNotice] = useState<TranslationKey | null>(null);
   const [now, setNow] = useState(() => secondsOfDayIn(city.timezone));
   const [reloadKey, setReloadKey] = useState(0);
+  const currentYear = Number(todayYear(city.timezone));
+  const [exportYear, setExportYear] = useState(currentYear);
+  const [exportProgress, setExportProgress] = useState<number | null>(null);
+  const [exportError, setExportError] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
 
   // Horaires du jour pour la ville choisie
@@ -199,6 +209,20 @@ export function PrayerTimes() {
       },
       { timeout: 10000, maximumAge: 600000 },
     );
+  };
+
+  const exportCalendar = async () => {
+    if (exportProgress !== null) return;
+    setExportProgress(0);
+    setExportError(false);
+    try {
+      const months = await fetchPrayerYear(city, exportYear, setExportProgress);
+      downloadBlob(mawaqitZip(months), mawaqitFileName(city, exportYear));
+    } catch {
+      setExportError(true);
+    } finally {
+      setExportProgress(null);
+    }
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -444,6 +468,50 @@ export function PrayerTimes() {
               {t('ptMethodNote')} {anglesLabel}
               {day.hanafiAsr && ` · ${t('ptHanafiAsr')}`}
               {day.polar && ` · ${t('ptPolarNote')}`}
+            </p>
+          )}
+
+          {/* Export calendrier annuel (format CSV Mawaqit) */}
+          {status !== 'error' && (
+            <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <label className="font-['adobe-devanagari_844'] text-white/70 text-base flex items-center gap-2">
+                {t('ptExportYear')}
+                <select
+                  value={exportYear}
+                  onChange={(e) => setExportYear(Number(e.target.value))}
+                  disabled={exportProgress !== null}
+                  className="h-10 px-3 rounded-xl bg-white/10 border border-white/20 text-white font-['adobe-devanagari_844'] outline-none focus:border-[#F9DACA]/60"
+                >
+                  {[currentYear, currentYear + 1].map((y) => (
+                    <option key={y} value={y} className="text-[#2C2A5A]">
+                      {y}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                type="button"
+                onClick={exportCalendar}
+                disabled={exportProgress !== null}
+                className="h-12 px-6 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/30 text-white font-['adobe-devanagari_844'] text-base flex items-center gap-2 transition-colors disabled:opacity-70 min-w-[18rem] justify-center"
+              >
+                {exportProgress === null ? (
+                  <>
+                    <Download className="w-5 h-5" />
+                    {t('ptExportButton')}
+                  </>
+                ) : (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    {t('ptExportProgress')} {Math.round(exportProgress * 100)} %
+                  </>
+                )}
+              </button>
+            </div>
+          )}
+          {status !== 'error' && (
+            <p className="font-['adobe-devanagari_844'] text-sm text-white/40 mt-3 text-center leading-relaxed">
+              {exportError ? <span className="text-[#F9DACA]">{t('ptExportError')}</span> : t('ptExportHint')}
             </p>
           )}
         </motion.div>

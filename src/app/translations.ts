@@ -157,6 +157,11 @@ export const translations = {
     ptRetry: "Réessayer",
     ptGeoError: "Localisation indisponible. Recherchez votre ville ci-dessus.",
     ptSearchError: "La recherche de villes est momentanément indisponible.",
+    ptExportYear: "Année",
+    ptExportButton: "Télécharger le calendrier annuel (CSV)",
+    ptExportProgress: "Calcul en cours…",
+    ptExportHint: "Fichier zip de 12 fichiers CSV (un par mois), au format importable dans Mawaqit (Calcul → Calendrier).",
+    ptExportError: "Le téléchargement a échoué. Réessayez dans un instant.",
   },
   en: {
     // Navbar
@@ -311,6 +316,11 @@ export const translations = {
     ptRetry: "Retry",
     ptGeoError: "Location unavailable. Search for your city above.",
     ptSearchError: "City search is temporarily unavailable.",
+    ptExportYear: "Year",
+    ptExportButton: "Download yearly calendar (CSV)",
+    ptExportProgress: "Computing…",
+    ptExportHint: "Zip of 12 CSV files (one per month), ready to import into Mawaqit (Calculation → Calendar).",
+    ptExportError: "Download failed. Please try again in a moment.",
   },
 };
 

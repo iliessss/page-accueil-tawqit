@@ -116,23 +116,32 @@ export function nowIn(timezone: string): string {
   }).format(new Date());
 }
 
-export async function fetchPrayerDay(city: CityHit, signal?: AbortSignal): Promise<PrayerDay> {
+function buildParams(city: CityHit, date: string): URLSearchParams {
   const angles = COUNTRY_ANGLES[city.countryCode] ?? DEFAULT_ANGLES;
-  const hanafiAsr = HANAFI_ASR.has(city.countryCode);
-
   const params = new URLSearchParams({
     latitude: String(city.latitude),
     longitude: String(city.longitude),
     timezone: city.timezone,
-    date: todayIn(city.timezone),
+    date,
     fajrAngle: String(angles.fajr),
+    // Règles des hautes latitudes = défauts de l'app mobile (app_state.dart) :
+    // sans elles l'API renvoie un Fajr/Icha vide à Paris en juin (18° jamais atteint).
+    polarRule: 'astronomicalMiddleNight',
+    polarRuleHorizon: 'nearestCity',
+    polarNightRule: 'noonForSunriseAsrMaghrib',
   });
   if (angles.isha !== null) params.set('ishaAngle', String(angles.isha));
   if (angles.ishaMinutesAfterMaghrib) {
     params.set('ishaMinutesAfterMaghrib', String(angles.ishaMinutesAfterMaghrib));
   }
+  return params;
+}
 
-  const res = await fetch(`/api/prayer-times?${params}`, { signal });
+async function fetchDate(city: CityHit, date: string, signal?: AbortSignal): Promise<PrayerDay> {
+  const angles = COUNTRY_ANGLES[city.countryCode] ?? DEFAULT_ANGLES;
+  const hanafiAsr = HANAFI_ASR.has(city.countryCode);
+
+  const res = await fetch(`/api/prayer-times?${buildParams(city, date)}`, { signal });
   if (!res.ok) throw new Error(`API ${res.status}`);
   const json = await res.json();
   const t = json.times;
@@ -152,4 +161,42 @@ export async function fetchPrayerDay(city: CityHit, signal?: AbortSignal): Promi
     angles,
     polar: Boolean(t.polarFajr || t.polarIsha),
   };
+}
+
+export function fetchPrayerDay(city: CityHit, signal?: AbortSignal): Promise<PrayerDay> {
+  return fetchDate(city, todayIn(city.timezone), signal);
+}
+
+const pad2 = (n: number) => String(n).padStart(2, '0');
+
+/**
+ * Toute une année, jour par jour (l'API ne calcule qu'une date à la fois).
+ * Requêtes par lots pour ne pas saturer l'API ; `onProgress` reçoit 0..1.
+ */
+export async function fetchPrayerYear(
+  city: CityHit,
+  year: number,
+  onProgress?: (ratio: number) => void,
+  signal?: AbortSignal,
+): Promise<PrayerDay[][]> {
+  const dates: { m: number; d: number; iso: string }[] = [];
+  for (let m = 1; m <= 12; m++) {
+    const days = new Date(year, m, 0).getDate();
+    for (let d = 1; d <= days; d++) dates.push({ m, d, iso: `${year}-${pad2(m)}-${pad2(d)}` });
+  }
+
+  const months: PrayerDay[][] = Array.from({ length: 12 }, () => []);
+  let done = 0;
+  const CONCURRENCY = 12;
+  let next = 0;
+  const worker = async () => {
+    while (next < dates.length) {
+      const i = next++;
+      const { m, iso } = dates[i];
+      months[m - 1][dates[i].d - 1] = await fetchDate(city, iso, signal);
+      onProgress?.(++done / dates.length);
+    }
+  };
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+  return months;
 }
