@@ -131,6 +131,9 @@ export const translations = {
     support: "Support",
     privacy: "Confidentialité",
     terms: "Conditions",
+    legalNotice: "Mentions légales",
+    legalClose: "Fermer",
+    editedBy: "Un projet de l'association",
     contactLink: "Contact",
     allRightsReserved: "Tous droits réservés",
 
@@ -290,6 +293,9 @@ export const translations = {
     support: "Support",
     privacy: "Privacy",
     terms: "Terms",
+    legalNotice: "Legal notice",
+    legalClose: "Close",
+    editedBy: "A project of the association",
     contactLink: "Contact",
     allRightsReserved: "All rights reserved",
 

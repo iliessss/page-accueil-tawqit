@@ -26,8 +26,8 @@ export function Footer({ darkMode = false }: FooterProps) {
       { label: t('donateFooter'), href: 'https://donorbox.org/tawqit', external: true }
     ],
     legal: [
-      { label: t('privacy'), href: '#' },
-      { label: t('terms'), href: '#' },
+      { label: t('privacy'), href: '#confidentialite' },
+      { label: t('legalNotice'), href: '#mentions-legales' },
       { label: t('contactLink'), href: 'mailto:contact@tawqit.org' }
     ]
   };
@@ -126,15 +126,12 @@ export function Footer({ darkMode = false }: FooterProps) {
           <p className="font-['adobe-devanagari_844'] text-white/60 text-sm">
             © {currentYear} Tawqit — {t('allRightsReserved')}
           </p>
-          <div className="flex items-center gap-6">
-            <a href="#" className="font-['Inter'] text-white/60 hover:text-white transition-colors text-sm">
-              Français
+          <p className="font-['adobe-devanagari_844'] text-white/60 text-sm">
+            {t('editedBy')}{' '}
+            <a href="#mentions-legales" className="text-white/80 hover:text-white underline underline-offset-4">
+              LOGARITHMES
             </a>
-            <span className="text-white/30">•</span>
-            <a href="#" className="font-['Inter'] text-white/60 hover:text-white transition-colors text-sm">
-              عربي
-            </a>
-          </div>
+          </p>
         </div>
       </div>
     </footer>

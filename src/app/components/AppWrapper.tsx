@@ -11,6 +11,7 @@ import { Footer } from './Footer';
 import { GlobalBackground } from './GlobalBackground';
 import { SectionBackground } from './SectionBackground';
 import { SectionSeparator } from './SectionSeparator';
+import { LegalPages } from './LegalPages';
 
 interface AppWrapperProps {
   darkMode: boolean;
@@ -22,6 +23,7 @@ export function AppWrapper({ darkMode, setDarkMode }: AppWrapperProps) {
     <div className={darkMode ? 'dark' : ''}>
       <GlobalBackground>
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+        <LegalPages />
         
         <main>
           {/* HORAIRES PAR VILLE - Violet */}
