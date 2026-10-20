@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useLanguage } from './LanguageContext';
 
-// Infos de l'association éditrice (répertoire SIRENE / RNA, consulté le 2026-10-20).
+// Infos de l'association éditrice (répertoire SIRENE / RNA consulté le 2026-10-20 ;
+// bureau : statuts du 17 avril 2026).
 const ORG = {
   name: 'LOGARITHMES',
   form: 'association loi 1901',
   address: '255 rue de Lannoy, Appartement 6 – Bâtiment 8, 59100 Roubaix, France',
   rna: 'W595046717',
   siren: '109 148 924',
-  publisher: 'le président de l\'association',
+  publisher: 'Elias Abdouni, président de l\'association',
   email: 'contact@tawqit.org',
 };
 
