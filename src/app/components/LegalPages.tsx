@@ -7,7 +7,8 @@ import { useLanguage } from './LanguageContext';
 const ORG = {
   name: 'LOGARITHMES',
   form: 'association loi 1901',
-  address: '255 rue de Lannoy, Appartement 6 – Bâtiment 8, 59100 Roubaix, France',
+  // Adresse exacte volontairement non affichée (domicile) : ville + RNA suffisent à identifier l'association.
+  address: 'à Roubaix (Nord, France)',
   rna: 'W595046717',
   siren: '109 148 924',
   publisher: 'Elias Abdouni, président de l\'association',
