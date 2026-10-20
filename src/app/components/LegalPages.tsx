@@ -93,9 +93,23 @@ function Privacy() {
       <ul>
         <li>Les horaires sont calculés localement sur votre appareil : aucune donnée n'est envoyée à nos serveurs.</li>
         <li>
-          La position de l'appareil, si vous l'autorisez, sert uniquement au calcul et reste sur l'appareil.
+          La position de l'appareil, si vous l'autorisez, sert uniquement au calcul et n'est jamais enregistrée ni
+          associée à votre identité.
         </li>
-        <li>Aucun compte, aucune publicité, aucun traceur.</li>
+        <li>
+          Pour affiner le calcul (pression, température, altitude), l'application envoie <strong>uniquement les
+          coordonnées de la ville choisie</strong>, sans identifiant, aux services tiers{' '}
+          <a href="https://open-meteo.com/en/terms" target="_blank" rel="noopener noreferrer">Open-Meteo</a> et{' '}
+          <a href="https://www.opentopodata.org/" target="_blank" rel="noopener noreferrer">Open Topo Data</a>.
+        </li>
+        <li>Les notifications sont programmées localement. Aucun compte, aucune publicité, aucun traceur.</li>
+        <li>
+          Version complète pour les stores :{' '}
+          <a href="https://iliessss.github.io/tawqit-privacy/" target="_blank" rel="noopener noreferrer">
+            politique de confidentialité de l'application
+          </a>
+          .
+        </li>
       </ul>
       <h3>Dons</h3>
       <p>
