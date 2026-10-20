@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useLanguage } from './LanguageContext';
 
-// Infos de l'association éditrice. À COMPLÉTER avant mise en ligne.
+// Infos de l'association éditrice (répertoire SIRENE / RNA, consulté le 2026-10-20).
 const ORG = {
   name: 'LOGARITHMES',
-  form: 'Association loi 1901',
-  address: '[adresse du siège]',
-  rna: '[n° RNA W…]',
-  publisher: '[directeur·rice de la publication]',
+  form: 'association loi 1901',
+  address: '255 rue de Lannoy, Appartement 6 – Bâtiment 8, 59100 Roubaix, France',
+  rna: 'W595046717',
+  siren: '109 148 924',
+  publisher: 'le président de l\'association',
   email: 'contact@tawqit.org',
 };
 
@@ -26,7 +27,9 @@ function Mentions() {
       <h3>Éditeur du site</h3>
       <p>
         Le site <strong>tawqit.org</strong> et l'application <strong>Tawqit</strong> sont édités par l'association{' '}
-        <strong>{ORG.name}</strong> ({ORG.form}), dont le siège est situé {ORG.address}, déclarée sous le n° {ORG.rna}.
+        <strong>{ORG.name}</strong> ({ORG.form}), dont le siège est situé {ORG.address}.
+        <br />
+        N° RNA : {ORG.rna} — SIREN : {ORG.siren}.
         <br />
         Directeur de la publication : {ORG.publisher}.
         <br />
