@@ -178,6 +178,15 @@ export function About() {
                 <p className="font-['adobe-devanagari_844'] text-lg text-[#2C2A5A] dark:text-white/90 leading-relaxed">
                   {t('aboutBio4')}
                 </p>
+                <div className="pt-2">
+                  <a
+                    href="/interventions/"
+                    className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#514668] hover:bg-[#2C2A5A] text-white font-['CormorantSC-Bold'] text-base leading-tight transition-colors shadow-lg"
+                  >
+                    {t('interventionCta')}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
               </motion.div>
             </div>
           </motion.div>

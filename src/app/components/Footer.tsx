@@ -23,6 +23,7 @@ export function Footer({ darkMode = false }: FooterProps) {
       { label: t('faq'), href: '#faq' },
       { label: t('methods'), href: '#methodes' },
       { label: t('support'), href: '#' },
+      { label: t('interventionLink'), href: '/interventions/' },
       { label: t('donateFooter'), href: 'https://donorbox.org/tawqit', external: true }
     ],
     legal: [

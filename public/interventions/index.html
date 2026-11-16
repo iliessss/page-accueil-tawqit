@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demander une intervention — Tawqit</title>
+<meta name="description" content="Mosquées, associations, instituts : demandez une conférence de Cheikh Ismaïl sur les horaires de prière.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#514668">
+<link rel="preload" href="/interventions/fonts/cormorant-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/interventions/fonts/cormorant-sc.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/interventions/fonts/literata-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/interventions/tokens.css">
+<link rel="stylesheet" href="/interventions/style.css">
+<script>document.documentElement.classList.add('js-ready');</script>
+<noscript><style>.sans-js-masque{display:none !important}</style></noscript>
+</head>
+<body>
+
+<div class="page">
+<div class="page__zellige" aria-hidden="true"></div>
+<div class="page__colonne">
+
+<header class="ouverture" id="haut">
+  <img class="ouverture__logo" src="/interventions/img/logo-tawqit-clair.png" width="414" height="360" alt="Tawqit">
+  <p class="surtitre ouverture__surtitre">Mosquées · Associations · Instituts</p>
+  <h1 class="ouverture__titre" id="titre-page">Inviter Cheikh Ismaïl dans votre mosquée</h1>
+  <p class="ouverture__chapeau">Cheikh Ismaïl ar-Roubaysi, imam et co-fondateur de l'application Tawqit, intervient sur les horaires de prière : le fajr, l'icha, et la manière dont on les calcule.</p>
+  <ul class="reperes">
+    <li><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4.5" y="4.5" width="15" height="15"></rect><rect x="4.5" y="4.5" width="15" height="15" transform="rotate(45 12 12)"></rect></svg>Frais pris en charge par la structure</li>
+    <li><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4.5" y="4.5" width="15" height="15"></rect><rect x="4.5" y="4.5" width="15" height="15" transform="rotate(45 12 12)"></rect></svg>Don de montant libre</li>
+    <li><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4.5" y="4.5" width="15" height="15"></rect><rect x="4.5" y="4.5" width="15" height="15" transform="rotate(45 12 12)"></rect></svg>L'envoi ne réserve aucune date</li>
+  </ul>
+</header>
+
+<main class="carte" id="formulaire" aria-labelledby="titre-page">
+
+  <div class="carte__avant" id="avant-envoi">
+
+    <ol class="progression sans-js-masque" id="progression" aria-label="Progression">
+      <li class="progression__item est-fait" aria-current="step"><span class="progression__barre" aria-hidden="true"></span><span class="progression__nom">Structure</span></li>
+      <li class="progression__item"><span class="progression__barre" aria-hidden="true"></span><span class="progression__nom">Vous</span></li>
+      <li class="progression__item"><span class="progression__barre" aria-hidden="true"></span><span class="progression__nom">Intervention</span></li>
+      <li class="progression__item"><span class="progression__barre" aria-hidden="true"></span><span class="progression__nom">Conditions</span></li>
+    </ol>
+
+    <p class="carte__note sans-js-masque">Les champs marqués d'un astérisque sont nécessaires.</p>
+
+    <form id="demande" class="sans-js-masque" method="post" action="#formulaire" autocomplete="on">
+
+      <div class="recap" id="recap" role="alert" tabindex="-1" hidden>
+        <p class="recap__texte" id="recap-texte"></p>
+        <ul class="recap__liste" id="recap-liste"></ul>
+      </div>
+
+      <div class="leurre" aria-hidden="true">
+        <label for="f-societe">Ne pas remplir</label>
+        <input type="text" id="f-societe" name="societe" tabindex="-1" autocomplete="off">
+      </div>
+
+      <!-- Étape 1 : Votre structure -->
+      <fieldset class="etape etape--active" id="etape-1">
+        <legend class="etape__legende"><span class="etape__n">Étape 1</span><h2 class="etape__titre" tabindex="-1">Votre structure</h2></legend>
+        <div class="etape__champs">
+          <fieldset class="groupe" id="g-type_demandeur" aria-describedby="e-type_demandeur">
+            <legend class="q">Au nom de qui faites-vous cette demande ? <span class="req" aria-hidden="true">*</span></legend>
+            <div class="options">
+              <label class="opt"><input type="radio" name="type_demandeur" value="mosquee" required><span>Une mosquée ou une association cultuelle</span></label>
+              <label class="opt"><input type="radio" name="type_demandeur" value="institut"><span>Un institut ou une école</span></label>
+              <label class="opt"><input type="radio" name="type_demandeur" value="association"><span>Une autre association</span></label>
+              <label class="opt"><input type="radio" name="type_demandeur" value="organisation"><span>Une autre organisation</span></label>
+              <label class="opt"><input type="radio" name="type_demandeur" value="particulier"><span>En mon nom propre, comme particulier</span></label>
+            </div>
+            <p class="erreur" id="e-type_demandeur" hidden></p>
+          </fieldset>
+
+          <div class="avis" id="msg-particulier" role="status" hidden>
+            <h3 class="titre-3">Les interventions sont organisées avec des structures</h3>
+            <p>Nous ne pouvons pas organiser d'intervention à la demande d'un particulier. Si vous souhaitez une conférence dans votre ville, le plus simple est de transmettre cette page aux responsables de votre mosquée ou de votre association : ils pourront déposer la demande.</p>
+            <p class="avis__action"><button type="button" class="b2" id="copier-lien">Copier le lien de cette page</button> <span class="avis__retour" id="copie-retour" role="status"></span></p>
+          </div>
+
+          <div class="bloc" id="bloc-structure">
+            <div class="f">
+              <label for="f-structure_nom">Nom de la structure <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="f-structure_nom" name="structure_nom" autocomplete="organization" maxlength="160" required aria-describedby="e-structure_nom">
+              <p class="erreur" id="e-structure_nom" hidden></p>
+            </div>
+            <div class="champs-ligne champs-ligne--ville">
+              <div class="f">
+                <label for="f-ville">Ville du lieu prévu <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="f-ville" name="ville" autocomplete="address-level2" maxlength="120" required aria-describedby="e-ville">
+                <p class="erreur" id="e-ville" hidden></p>
+              </div>
+              <div class="f">
+                <label for="f-code_postal">Code postal du lieu prévu</label>
+                <input type="text" id="f-code_postal" name="code_postal" autocomplete="postal-code" inputmode="text" maxlength="16">
+              </div>
+              <div class="f">
+                <label for="f-pays">Pays du lieu prévu <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="f-pays" name="pays" value="France" autocomplete="country-name" maxlength="80" required aria-describedby="e-pays">
+                <p class="erreur" id="e-pays" hidden></p>
+              </div>
+            </div>
+            <details class="plus">
+              <summary>Adresse, numéro RNA ou SIREN, site — facultatif</summary>
+              <div class="plus__corps">
+                <div class="f">
+                  <label for="f-adresse">Adresse du lieu prévu</label>
+                  <input type="text" id="f-adresse" name="adresse" autocomplete="off" maxlength="240" aria-describedby="a-adresse">
+                  <p class="aide" id="a-adresse">Facultative à ce stade.</p>
+                </div>
+                <div class="f">
+                  <label for="f-rna_siren">Numéro RNA ou SIREN</label>
+                  <input type="text" id="f-rna_siren" name="rna_siren" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40" aria-describedby="a-rna_siren">
+                  <p class="aide" id="a-rna_siren">Il nous permet de vérifier la structure. Vous le trouvez sur le récépissé de déclaration ou sur l'avis de situation.</p>
+                </div>
+                <div class="f">
+                  <label for="f-site_web">Site ou page publique de la structure</label>
+                  <input type="text" id="f-site_web" name="site_web" autocomplete="url" inputmode="url" autocapitalize="none" spellcheck="false" maxlength="240" aria-describedby="a-site_web">
+                  <p class="aide" id="a-site_web">Site, page Facebook, Instagram…</p>
+                </div>
+              </div>
+            </details>
+            <div class="actions actions--seul">
+              <button type="button" class="b1" data-etape="suivant">Continuer</button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <div id="suite">
+
+      <!-- Étape 2 : Vous -->
+      <fieldset class="etape" id="etape-2">
+        <legend class="etape__legende"><span class="etape__n">Étape 2</span><h2 class="etape__titre" tabindex="-1">Vous</h2></legend>
+        <div class="etape__champs">
+          <div class="f">
+            <label for="f-nom_prenom">Prénom et nom <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="f-nom_prenom" name="nom_prenom" autocomplete="name" maxlength="120" required aria-describedby="e-nom_prenom">
+            <p class="erreur" id="e-nom_prenom" hidden></p>
+          </div>
+          <div class="f" id="g-fonction">
+            <label for="f-fonction">Votre fonction dans la structure <span class="req" aria-hidden="true">*</span></label>
+            <select id="f-fonction" name="fonction" required aria-describedby="e-fonction">
+              <option value=""></option>
+              <option value="president">Président</option>
+              <option value="bureau">Membre du bureau</option>
+              <option value="imam">Imam</option>
+              <option value="direction">Directeur ou responsable pédagogique</option>
+              <option value="mandate">Salarié ou bénévole mandaté</option>
+              <option value="autre">Autre</option>
+            </select>
+            <p class="erreur" id="e-fonction" hidden></p>
+          </div>
+          <div class="f" id="bloc-fonction_autre" hidden>
+            <label for="f-fonction_autre">Autre <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="f-fonction_autre" name="fonction_autre" autocomplete="off" maxlength="120" aria-describedby="e-fonction_autre">
+            <p class="erreur" id="e-fonction_autre" hidden></p>
+          </div>
+          <div class="champs-ligne champs-ligne--coord">
+            <div class="f">
+              <label for="f-courriel">Courriel <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="f-courriel" name="courriel" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" maxlength="254" required aria-describedby="a-courriel e-courriel">
+              <p class="aide" id="a-courriel">De préférence une adresse de la structure.</p>
+              <p class="erreur" id="e-courriel" hidden></p>
+            </div>
+            <div class="f">
+              <label for="f-telephone">Téléphone <span class="req" aria-hidden="true">*</span></label>
+              <input type="tel" id="f-telephone" name="telephone" autocomplete="tel" inputmode="tel" maxlength="40" required aria-describedby="a-coordonnees e-telephone">
+              <p class="erreur" id="e-telephone" hidden></p>
+            </div>
+          </div>
+          <p class="aide aide--groupe" id="a-coordonnees">Indiquez uniquement vos propres coordonnées.</p>
+          <div class="f" id="c-certifie_habilite">
+            <label class="opt"><input type="checkbox" name="certifie_habilite" value="oui" required aria-describedby="e-certifie_habilite"><span>Je certifie être responsable de cette structure ou avoir reçu son mandat pour déposer cette demande et accepter les conditions d'accueil en son nom. <span class="req" aria-hidden="true">*</span></span></label>
+            <p class="erreur" id="e-certifie_habilite" hidden></p>
+          </div>
+          <div class="actions">
+            <button type="button" class="b2" data-etape="precedent">Retour</button>
+            <button type="button" class="b1" data-etape="suivant">Continuer</button>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Étape 3 : L'intervention souhaitée -->
+      <fieldset class="etape" id="etape-3">
+        <legend class="etape__legende"><span class="etape__n">Étape 3</span><h2 class="etape__titre" tabindex="-1">L'intervention souhaitée</h2></legend>
+        <div class="etape__champs">
+          <fieldset class="groupe" id="g-format" aria-describedby="e-format">
+            <legend class="q">Format <span class="req" aria-hidden="true">*</span></legend>
+            <div class="options">
+              <label class="opt"><input type="radio" name="format" value="conference" required><span>Une conférence</span></label>
+              <label class="opt"><input type="radio" name="format" value="conference_qr"><span>Une conférence suivie de questions-réponses</span></label>
+              <label class="opt"><input type="radio" name="format" value="cours"><span>Un cours ou un séminaire sur plusieurs séances</span></label>
+              <label class="opt"><input type="radio" name="format" value="a_definir"><span>À définir ensemble</span></label>
+            </div>
+            <p class="erreur" id="e-format" hidden></p>
+          </fieldset>
+          <fieldset class="groupe" id="g-public" aria-describedby="e-public">
+            <legend class="q">Public attendu, même approximativement <span class="req" aria-hidden="true">*</span></legend>
+            <div class="options options--grille">
+              <label class="opt"><input type="radio" name="public" value="moins_50" required><span>Moins de 50 personnes</span></label>
+              <label class="opt"><input type="radio" name="public" value="50_150"><span>De 50 à 150</span></label>
+              <label class="opt"><input type="radio" name="public" value="150_300"><span>De 151 à 300</span></label>
+              <label class="opt"><input type="radio" name="public" value="plus_300"><span>Plus de 300</span></label>
+            </div>
+            <p class="erreur" id="e-public" hidden></p>
+          </fieldset>
+
+          <div class="voeux">
+            <p class="voeux__intro">Indiquez jusqu'à trois vœux, par ordre de préférence. Plus vous en donnez, plus il est facile de trouver une date.</p>
+            <fieldset class="voeu" id="voeu-1">
+              <legend class="q">Vœu 1 <span class="req" aria-hidden="true">*</span></legend>
+              <div class="champs-ligne champs-ligne--voeu">
+                <div class="f">
+                  <label for="f-voeu1_date">Date</label>
+                  <input type="date" id="f-voeu1_date" name="voeu1_date" autocomplete="off" required aria-describedby="a-voeux e-voeu1_date">
+                  <p class="erreur" id="e-voeu1_date" hidden></p>
+                </div>
+                <div class="f">
+                  <label for="f-voeu1_moment">Moment</label>
+                  <select id="f-voeu1_moment" name="voeu1_moment" autocomplete="off" required aria-describedby="e-voeu1_moment">
+                    <option value=""></option>
+                    <option value="matin">Le matin</option>
+                    <option value="apres_midi">L'après-midi</option>
+                    <option value="soiree">En soirée</option>
+                    <option value="vendredi">Autour de la prière du vendredi</option>
+                    <option value="week_end">Sur tout un week-end</option>
+                  </select>
+                  <p class="erreur" id="e-voeu1_moment" hidden></p>
+                </div>
+              </div>
+            </fieldset>
+            <p class="aide" id="a-voeux">Vos disponibilités sont examinées selon l'agenda de Cheikh Ismaïl.</p>
+          </div>
+
+          <div class="repli">
+            <details class="plus">
+              <summary>Proposer d'autres dates</summary>
+              <div class="plus__corps">
+                <fieldset class="voeu" id="voeu-2">
+                  <legend class="q">Vœu 2</legend>
+                  <div class="champs-ligne champs-ligne--voeu">
+                    <div class="f">
+                      <label for="f-voeu2_date">Date</label>
+                      <input type="date" id="f-voeu2_date" name="voeu2_date" autocomplete="off" aria-describedby="a-voeux e-voeu2_date">
+                      <p class="erreur" id="e-voeu2_date" hidden></p>
+                    </div>
+                    <div class="f">
+                      <label for="f-voeu2_moment">Moment</label>
+                      <select id="f-voeu2_moment" name="voeu2_moment" autocomplete="off" aria-describedby="e-voeu2_moment">
+                        <option value=""></option>
+                        <option value="matin">Le matin</option>
+                        <option value="apres_midi">L'après-midi</option>
+                        <option value="soiree">En soirée</option>
+                        <option value="vendredi">Autour de la prière du vendredi</option>
+                        <option value="week_end">Sur tout un week-end</option>
+                      </select>
+                      <p class="erreur" id="e-voeu2_moment" hidden></p>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset class="voeu" id="voeu-3">
+                  <legend class="q">Vœu 3</legend>
+                  <div class="champs-ligne champs-ligne--voeu">
+                    <div class="f">
+                      <label for="f-voeu3_date">Date</label>
+                      <input type="date" id="f-voeu3_date" name="voeu3_date" autocomplete="off" aria-describedby="a-voeux e-voeu3_date">
+                      <p class="erreur" id="e-voeu3_date" hidden></p>
+                    </div>
+                    <div class="f">
+                      <label for="f-voeu3_moment">Moment</label>
+                      <select id="f-voeu3_moment" name="voeu3_moment" autocomplete="off" aria-describedby="e-voeu3_moment">
+                        <option value=""></option>
+                        <option value="matin">Le matin</option>
+                        <option value="apres_midi">L'après-midi</option>
+                        <option value="soiree">En soirée</option>
+                        <option value="vendredi">Autour de la prière du vendredi</option>
+                        <option value="week_end">Sur tout un week-end</option>
+                      </select>
+                      <p class="erreur" id="e-voeu3_moment" hidden></p>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="f">
+                  <label for="f-autres_possibilites">Autres possibilités</label>
+                  <textarea id="f-autres_possibilites" name="autres_possibilites" rows="3" maxlength="1000" aria-describedby="a-autres_possibilites"></textarea>
+                  <p class="aide" id="a-autres_possibilites">Par exemple : tous les samedis de mars, sauf le 14. Pour un week-end ou plusieurs séances, précisez ici les dates et les moments souhaités.</p>
+                </div>
+              </div>
+            </details>
+            <details class="plus">
+              <summary>Sujet, équipement du lieu, enregistrement — facultatif</summary>
+              <div class="plus__corps">
+                <div class="f">
+                  <label for="f-sujet">Sujet souhaité</label>
+                  <textarea id="f-sujet" name="sujet" rows="3" maxlength="1000" aria-describedby="a-sujet"></textarea>
+                  <p class="aide" id="a-sujet">Par exemple : comprendre les horaires du fajr et de l'icha. Laissez vide si vous préférez nous laisser proposer.</p>
+                </div>
+                <fieldset class="groupe" id="g-equipements">
+                  <legend class="q">Le lieu dispose-t-il :</legend>
+                  <div class="options">
+                    <label class="opt"><input type="checkbox" name="equipements" value="femmes"><span>d'un espace pour les femmes</span></label>
+                    <label class="opt"><input type="checkbox" name="equipements" value="sono"><span>d'une sonorisation</span></label>
+                    <label class="opt"><input type="checkbox" name="equipements" value="ecran"><span>d'un écran ou d'un vidéoprojecteur</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="groupe" id="g-film" aria-describedby="a-film">
+                  <legend class="q">Souhaitez-vous discuter d'un enregistrement ou d'une diffusion en direct ?</legend>
+                  <div class="options options--grille">
+                    <label class="opt"><input type="radio" name="film" value="oui"><span>Oui</span></label>
+                    <label class="opt"><input type="radio" name="film" value="non"><span>Non</span></label>
+                    <label class="opt"><input type="radio" name="film" value="a_discuter"><span>À discuter</span></label>
+                  </div>
+                  <p class="aide" id="a-film">Cette réponse ne vaut pas autorisation de filmer ou de diffuser. Les modalités seront examinées séparément.</p>
+                </fieldset>
+              </div>
+            </details>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="b2" data-etape="precedent">Retour</button>
+            <button type="button" class="b1" data-etape="suivant">Continuer</button>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Étape 4 : Les conditions d'accueil -->
+      <fieldset class="etape" id="etape-4">
+        <legend class="etape__legende"><span class="etape__n">Étape 4</span><h2 class="etape__titre" tabindex="-1">Les conditions d'accueil</h2></legend>
+        <div class="etape__champs">
+          <div class="repli">
+            <details class="plus">
+              <summary>Lire le détail des conditions</summary>
+              <div class="plus__corps plus__corps--texte">
+                <p>Tawqit est un projet associatif. L'application est gratuite et sans publicité. Une intervention mobilise du temps et des moyens : nous demandons donc à la structure qui invite de s'engager sur les points suivants.</p>
+                <ul class="conditions-liste">
+                  <li>
+                    <h3 class="titre-3">Les frais de déplacement</h3>
+                    <p>La structure prend en charge le trajet aller et retour de l'intervenant.</p>
+                  </li>
+                  <li>
+                    <h3 class="titre-3">La restauration</h3>
+                    <p>La structure prend en charge les repas sur place.</p>
+                  </li>
+                  <li>
+                    <h3 class="titre-3">L'hébergement, selon la distance</h3>
+                    <p>Lorsque la distance ou le programme ne permettent pas l'aller et retour dans la journée, la structure prend en charge l'hébergement. Sa durée et ses modalités sont convenues par écrit avant toute confirmation.</p>
+                  </li>
+                  <li>
+                    <h3 class="titre-3">Un don au projet Tawqit</h3>
+                    <p>La structure contribue au projet par un don. Son montant est libre : chaque structure le fixe selon ses moyens.</p>
+                  </li>
+                  <li>
+                    <h3 class="titre-3">Une collecte sur place, si vous l'acceptez</h3>
+                    <p>Si la structure en est d'accord, une collecte au profit du projet est proposée aux personnes présentes le jour de l'intervention. Ce point est facultatif, et distinct du don de la structure.</p>
+                  </li>
+                </ul>
+                <p class="aide">Aucun règlement n'est demandé lors du dépôt de la demande. Les modalités de versement sont convenues après accord.</p>
+                <h3 class="titre-3">À quoi sert cette participation</h3>
+                <p>Elle finance la suite du projet : l'entretien des vidéos explicatives, des films et des séries que nous mettons à disposition ; la maintenance de l'application et le suivi de ses utilisateurs avec les développeurs ; et le temps que Cheikh Ismaïl consacre au projet.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="f" id="c-accepte_frais">
+            <label class="opt"><input type="checkbox" name="accepte_frais" value="oui" required aria-describedby="e-accepte_frais"><span>La structure prend en charge les frais de déplacement et de restauration de l'intervenant, et son hébergement si la distance ou le programme le demandent. <span class="req" aria-hidden="true">*</span></span></label>
+            <p class="erreur" id="e-accepte_frais" hidden></p>
+          </div>
+          <div class="f" id="c-accepte_don">
+            <label class="opt"><input type="checkbox" name="accepte_don" value="oui" required aria-describedby="e-accepte_don"><span>La structure contribue au projet Tawqit par un don, dont elle fixe librement le montant. <span class="req" aria-hidden="true">*</span></span></label>
+            <p class="erreur" id="e-accepte_don" hidden></p>
+          </div>
+          <fieldset class="groupe" id="g-collecte" aria-describedby="e-collecte">
+            <legend class="q">Acceptez-vous qu'une collecte au profit du projet soit proposée sur place ? <span class="req" aria-hidden="true">*</span></legend>
+            <div class="options options--grille">
+              <label class="opt"><input type="radio" name="collecte" value="oui" required><span>Oui</span></label>
+              <label class="opt"><input type="radio" name="collecte" value="non"><span>Non</span></label>
+              <label class="opt"><input type="radio" name="collecte" value="a_discuter"><span>À discuter</span></label>
+            </div>
+            <p class="erreur" id="e-collecte" hidden></p>
+          </fieldset>
+          <div class="f">
+            <label for="f-message">Autre chose à nous dire ?</label>
+            <textarea id="f-message" name="message" rows="4" maxlength="2000"></textarea>
+          </div>
+
+          <!-- Envoi -->
+          <div class="envoi">
+            <div class="f" id="c-accepte_donnees">
+              <label class="opt"><input type="checkbox" name="accepte_donnees" value="oui" required aria-describedby="e-accepte_donnees"><span>J'accepte que l'association LOGARITHMES utilise les informations de ce formulaire, y compris ma fonction dans la structure, pour étudier, organiser et suivre cette demande d'intervention. <span class="req" aria-hidden="true">*</span></span></label>
+              <p class="erreur" id="e-accepte_donnees" hidden></p>
+            </div>
+            <div class="f">
+              <label class="opt opt--petit"><input type="checkbox" name="accord_offres" value="oui"><span>J'accepte que l'association LOGARITHMES m'adresse par courriel, après l'intervention, des informations et des offres concernant l'affichage des horaires sur écran et la vente de calendriers. Cet accord est facultatif. Je peux le retirer à tout moment auprès de contact@tawqit.org, sans effet sur ma demande d'intervention.</span></label>
+            </div>
+            <div class="actions">
+              <button type="button" class="b2" data-etape="precedent">Retour</button>
+              <button type="submit" class="b1" id="envoyer">Envoyer la demande</button>
+            </div>
+            <p class="erreur erreur--envoi" id="e-envoi" role="alert" hidden></p>
+          </div>
+        </div>
+      </fieldset>
+
+      </div><!-- /suite -->
+    </form>
+
+    <noscript>
+      <p class="sans-js__texte">Ce formulaire demande JavaScript. Écrivez-nous à <a href="mailto:contact@tawqit.org">contact@tawqit.org</a>.</p>
+    </noscript>
+  </div>
+
+  <section class="apres" id="apres" aria-labelledby="t-apres" hidden>
+    <svg class="apres__ornement" aria-hidden="true" width="104" height="122" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="11" r="7"></circle><path d="M49 31 L60 18 L71 31"></path><circle cx="60" cy="83" r="52"></circle><circle cx="60" cy="83" r="45" stroke-dasharray="1 5.28"></circle><circle cx="60" cy="83" r="37"></circle><circle cx="60" cy="71" r="22"></circle><path d="M21 105 L99 61"></path><circle cx="60" cy="83" r="3" fill="currentColor"></circle></svg>
+    <h2 class="apres__titre" id="t-apres" tabindex="-1">Votre demande est bien arrivée</h2>
+    <p class="apres__texte">Merci. Votre demande est enregistrée. Nous l'étudions avec Cheikh Ismaïl et nous vous répondons à l'adresse <strong id="apres-courriel"></strong>. Aucune date n'est confirmée à ce stade : n'annoncez pas encore l'événement.</p>
+    <p class="apres__reference">Référence de votre demande : <strong id="apres-reference"></strong></p>
+    <p class="apres__lien"><a href="https://tawqit.org" rel="noopener">Découvrir l'application Tawqit</a></p>
+  </section>
+
+</main>
+
+<footer class="pied">
+  <details class="pied__repli">
+    <summary>Comment cela se passe</summary>
+    <div class="pied__corps">
+      <ol class="deroule">
+        <li>
+          <h3 class="titre-3">Vous déposez la demande.</h3>
+          <p>Votre structure, vos vœux de date, le format souhaité.</p>
+        </li>
+        <li>
+          <h3 class="titre-3">Nous l'étudions.</h3>
+          <p>Chaque demande est lue avec Cheikh Ismaïl, selon son agenda et la distance.</p>
+        </li>
+        <li>
+          <h3 class="titre-3">Nous vous répondons par courriel.</h3>
+          <p>Pour vous dire si l'intervention est possible et, le cas échéant, vous proposer une date.</p>
+        </li>
+      </ol>
+      <p>Déposer une demande ne confirme aucune date. L'intervention est confirmée après accord écrit de votre structure et de Tawqit sur la date et les conditions d'accueil.</p>
+    </div>
+  </details>
+  <details class="pied__repli">
+    <summary>Vos données : qui les lit, combien de temps, vos droits</summary>
+    <div class="pied__corps">
+      <p>Le responsable du traitement est l'association LOGARITHMES, qui porte le projet Tawqit, joignable à contact@tawqit.org. Vos informations servent à étudier, organiser et suivre votre demande d'intervention, avec votre accord. Les champs marqués d'un astérisque sont nécessaires ; les autres sont facultatifs. Elles sont lues par l'équipe Tawqit et hébergées par Google, prestataire technique de l'association ; elles ne sont ni vendues ni cédées. Elles sont conservées douze mois après la clôture de votre demande, puis supprimées. Si vous l'avez accepté, votre adresse sert aussi à vous présenter par courriel les offres de Tawqit destinées aux mosquées ; vous pouvez retirer cet accord à tout moment. En écrivant à <a href="mailto:contact@tawqit.org">contact@tawqit.org</a>, vous pouvez consulter, corriger ou faire supprimer vos informations, en limiter l'usage ou retirer votre accord. Vous pouvez aussi adresser une réclamation à la CNIL.</p>
+    </div>
+  </details>
+  <p class="pied__signature">Tawqit — projet porté par l'association LOGARITHMES · <a href="mailto:contact@tawqit.org">contact@tawqit.org</a></p>
+</footer>
+
+</div>
+</div>
+
+<script src="/interventions/app.js" defer></script>
+</body>
+</html>

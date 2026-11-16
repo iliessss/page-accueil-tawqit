@@ -1,0 +1,191 @@
+/* Jetons de la page « Demander une intervention » — aucune valeur en dur ailleurs que dans ce fichier.
+   Palette : marque/README.md. Polices : marque/polices/ (OFL), sous-ensemble latin woff2. */
+
+@font-face {
+  font-family: "Cormorant";
+  src: url("fonts/cormorant-var.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant SC";
+  src: url("fonts/cormorant-sc.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Literata";
+  src: url("fonts/literata-var.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* Replis calés sur les métriques mesurées avec fontTools (largeur moyenne des minuscules, ascendante, descendante) contre Georgia. */
+@font-face {
+  font-family: "Literata Repli";
+  src: local("Georgia");
+  size-adjust: 93.1%;
+  ascent-override: 126.4%;
+  descent-override: 33.1%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Cormorant Repli";
+  src: local("Georgia");
+  size-adjust: 114.2%;
+  ascent-override: 80.9%;
+  descent-override: 25.1%;
+  line-gap-override: 0%;
+}
+
+:root {
+  /* Couleurs (hex opaques) */
+  --violet-nuit: #514668;
+  --violet-dusk: #636193;
+  --mauve: #A88C9B;
+  --sable: #E9D7C3;
+  --navy: #2C2A5A;
+  --navy-marque: #3B3E6C;
+  --creme: #FBF6EE;
+  --creme-chaud: #F3E9D9;
+  --creme-champ: #FFFDF9;
+  --peche: #F9DACA;
+  --dore: #DAC2A3;
+  --dore-fonce: #7A5A2E;
+  --encre: var(--navy);
+  --encre-douce: #55527F;
+  --filet: #D8CCB9;
+  --filet-encre: #CAC6DA;
+  --bord-champ: #77739F;
+  --erreur: #9C2F34;
+  --erreur-fond: #FBE9E4;
+  --focus: #514668;
+  --blanc: #FFFFFF;
+  --violet-aube: #554E70;
+  --violet-pale: #F1ECF4;
+  --ombre-carte: 0 24px 60px rgba(44, 42, 90, 0.22);
+  /* Ciel de l'en-tête : crépuscule qui s'éclaircit jusqu'à la couleur de la page */
+  --ciel: linear-gradient(180deg, var(--violet-nuit) 0, var(--violet-aube) 220px, var(--violet-dusk) 470px, var(--mauve) 760px, var(--sable) 1010px, var(--creme) 1220px);
+
+  /* Familles */
+  --police-titre: "Cormorant", "Cormorant Repli", Georgia, "Times New Roman", serif;
+  --police-capitales: "Cormorant SC", "Cormorant Repli", Georgia, "Times New Roman", serif;
+  --police-texte: "Literata", "Literata Repli", Georgia, "Times New Roman", serif;
+
+  /* Échelle : corps, petit, trois titres (h1 >= 7x le corps sur grand écran) */
+  --t-corps: clamp(1.0625rem, 1.02rem + 0.15vw, 1.125rem);
+  --t-petit: 0.9375rem;
+  --t-capitales: 1.0625rem;
+  --t-h1: clamp(3.5rem, 2rem + 6.1vw, 7.5rem);
+  --t-h2: clamp(2.375rem, 1.45rem + 2.7vw, 3.875rem);
+  --t-h3: clamp(1.5rem, 1.35rem + 0.5vw, 1.75rem);
+  --lh-h1: 0.92;
+  --lh-h2: 1.02;
+  --lh-h3: 1.15;
+  --lh-corps: 1.6;
+  --lh-petit: 1.5;
+  --suivi-h1: -0.035em;
+  --suivi-h2: -0.02em;
+  --suivi-capitales: 0.14em;
+
+  /* Espacement entre sections : quatre valeurs fermées (mobile) */
+  --sp-1: 64px;
+  --sp-2: 88px;
+  --sp-3: 120px;
+  --sp-4: 160px;
+
+  /* Espacement interne des composants */
+  --gap-1: 0.5rem;
+  --gap-2: 1rem;
+  --gap-3: 1.75rem;
+  --gap-4: 2.75rem;
+
+  /* Grille 12 colonnes */
+  --grille-marge: 1.25rem;
+  --grille-gouttiere: 1rem;
+  --grille-max: 100rem;
+
+  /* Mesures */
+  --cible: 2.875rem;
+  --zone-claire: 260px;
+  --mord: 64px;
+  --bande-zellige: 1.75rem;
+  --rayon: 0.25rem;
+  --filet-epaisseur: 1px;
+  --tuile: 220px;
+
+  /* Variante épurée : page, carte, champs, boutons */
+  --carte-max: 760px;
+  --carte-rayon: 10px;
+  --carte-pad: clamp(1.375rem, 5vw, 3rem);
+  --colonne-pad-haut: 2.5rem;
+  --colonne-pad-bas: 3.5rem;
+  --colonne-gap: 2.25rem;
+  --ciel-hauteur: 1220px;
+  --ciel-largeur-min: 1956px; /* le fond 16:9 fait alors 1100 px de haut */
+  --fond-bas: #E5D6BF; /* bord bas du fond officiel, crème des pictogrammes */
+  --zellige-tuile: 240px;
+  --logo-h: 7.5rem;
+  --champ-h: 3rem;
+  --bouton-h: 3.25rem;
+  --rayon-champ: 6px;
+  --gap-champs: 1.375rem;
+  --gap-options: 0.625rem;
+  --t-saisie: 1.0625rem;
+  --t-libelle: 1rem;
+  --t-etape: 2.375rem;
+  --t-h1-epure: clamp(2.5rem, 7vw, 4rem);
+  --barre-progression: 4px;
+
+  /* Mouvement */
+  --d-140: 140ms;
+  --d-240: 240ms;
+  --d-420: 420ms;
+  --d-650: 650ms;
+  --d-900: 900ms;
+  --d-1200: 1200ms;
+  --ease-sortie: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --ease-entree-sortie: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-doux: cubic-bezier(0.4, 0, 0.2, 1);
+  --stagger: 80ms;
+  --decalage-reveal: 20px;
+
+  /* Profondeur */
+  --z-fond: 0;
+  --z-contenu: 1;
+  --z-bande: 2;
+  --z-panneau: 3;
+  --z-barre: 10;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --sp-1: 96px;
+    --sp-2: 144px;
+    --sp-3: 200px;
+    --sp-4: 280px;
+    --grille-marge: 4rem;
+    --grille-gouttiere: 1.5rem;
+    --zone-claire: 300px;
+    --mord: 96px;
+    --bande-zellige: clamp(4rem, 9vw, 8rem);
+    --tuile: 280px;
+    --gap-3: 2.25rem;
+    --gap-4: 3.5rem;
+  }
+}
+
+/* Vue étroite : même carte, en-tête resserré, fond d'application */
+@media (max-width: 599px) {
+  :root {
+    --colonne-pad-haut: 1.75rem;
+    --colonne-pad-bas: 2rem;
+    --colonne-gap: 1.5rem;
+    --logo-h: 5rem;
+    --t-etape: 2rem;
+    --t-h1-epure: 2.125rem;
+    --carte-pad: 1.125rem;
+  }
+}
