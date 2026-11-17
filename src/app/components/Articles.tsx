@@ -13,12 +13,19 @@ export function Articles({ darkMode = false }: ArticlesProps) {
   const { language, t } = useLanguage();
   const backgroundImage = darkMode ? backgroundDark : backgroundLight;
 
-  const articles = [
+  const articles: { title: string; authors: string; summary: string; href: string; action?: string }[] = [
     {
       title: t('article1Title'),
       authors: 'Iliès Haouche',
       summary: t('article1Summary'),
       href: `https://ilies-haouche.com/${language === 'en' ? 'en' : 'fr'}/projects/tawqit`,
+    },
+    {
+      title: t('article2Title'),
+      authors: 'Iliès Haouche · Cheikh Ismaïl ar-Roubaysi',
+      summary: t('article2Summary'),
+      href: '/articles/angle-de-depression-solaire.pdf',
+      action: t('articleReadPdf'),
     },
   ];
 
@@ -50,7 +57,7 @@ export function Articles({ darkMode = false }: ArticlesProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group flex flex-col w-full max-w-2xl rounded-[2rem] bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/25 shadow-xl p-8 lg:p-10 transition-colors hover:border-[#F9DACA]/70"
+              className="group flex flex-col w-full max-w-xl rounded-[2rem] bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/25 shadow-xl p-8 lg:p-10 transition-colors hover:border-[#F9DACA]/70"
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="flex items-center justify-center w-11 h-11 rounded-2xl bg-[#F9DACA]/20">
@@ -66,10 +73,10 @@ export function Articles({ darkMode = false }: ArticlesProps) {
               <p className="font-['adobe-devanagari_844'] text-lg text-white/80 leading-relaxed">
                 {article.summary}
               </p>
-              <span className="mt-8 self-start inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#F9DACA] group-hover:bg-[#E5D6BF] text-[#2C2A5A] font-['CormorantSC-Bold'] text-base leading-tight shadow-lg transition-colors whitespace-nowrap">
-                {t('articleRead')}
+              <span className="mt-auto pt-8 self-start"><span className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#F9DACA] group-hover:bg-[#E5D6BF] text-[#2C2A5A] font-['CormorantSC-Bold'] text-base leading-tight shadow-lg transition-colors whitespace-nowrap">
+                {article.action ?? t('articleRead')}
                 <span aria-hidden="true">→</span>
-              </span>
+              </span></span>
             </motion.a>
           ))}
         </div>
