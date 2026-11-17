@@ -13,6 +13,7 @@ import { SectionBackground } from './SectionBackground';
 import { SectionSeparator } from './SectionSeparator';
 import { LegalPages } from './LegalPages';
 import { InterventionBanner } from './InterventionBanner';
+import { Articles } from './Articles';
 import backgroundLight from 'figma:asset/e24de73c67279cf27f53290c20cb3ea4e31a70b6.png';
 import backgroundDark from 'figma:asset/8e763fc6c51997bb726189026bda5de1dc5e82de.png';
 
@@ -72,6 +73,15 @@ export function AppWrapper({ darkMode, setDarkMode }: AppWrapperProps) {
           <SectionBackground variant="violet">
             <section id="methodes">
               <Methods darkMode={darkMode} />
+            </section>
+          </SectionBackground>
+
+          <SectionSeparator variant="wave" color="rose" position="bottom" />
+
+          {/* ARTICLES - Violet */}
+          <SectionBackground variant="violet">
+            <section id="articles">
+              <Articles darkMode={darkMode} />
             </section>
           </SectionBackground>
 
