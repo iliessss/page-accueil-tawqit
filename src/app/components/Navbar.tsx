@@ -15,12 +15,13 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const { language, setLanguage, t } = useLanguage();
 
-  const navLinks = [
+  const navLinks: { label: string; href: string; external?: boolean; wideOnly?: boolean }[] = [
     { label: t('prayerTimesNav'), href: '#horaires' },
     { label: t('features'), href: '#fonctionnalites' },
     { label: t('preview'), href: '#apercu' },
     { label: t('methods'), href: '#methodes' },
     { label: t('about'), href: '#qui-sommes-nous' },
+    { label: t('interventionNav'), href: '/interventions/', wideOnly: true },
     { label: t('faq'), href: '#faq' }
   ];
 
@@ -57,7 +58,7 @@ export function Navbar({ darkMode, setDarkMode }: NavbarProps) {
                 key={link.label}
                 href={link.href}
                 {...(link.external && { target: '_blank', rel: 'noopener noreferrer' })}
-                className="text-white/80 hover:text-white text-sm font-['CormorantSC-Medium'] transition-colors whitespace-nowrap"
+                className={`text-white/80 hover:text-white text-sm font-['CormorantSC-Medium'] transition-colors whitespace-nowrap ${link.wideOnly ? 'hidden xl:inline' : ''}`}
               >
                 {link.label}
               </a>

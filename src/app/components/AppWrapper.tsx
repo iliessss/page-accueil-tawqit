@@ -12,6 +12,7 @@ import { GlobalBackground } from './GlobalBackground';
 import { SectionBackground } from './SectionBackground';
 import { SectionSeparator } from './SectionSeparator';
 import { LegalPages } from './LegalPages';
+import { InterventionBanner } from './InterventionBanner';
 
 interface AppWrapperProps {
   darkMode: boolean;
@@ -31,6 +32,7 @@ export function AppWrapper({ darkMode, setDarkMode }: AppWrapperProps) {
             <section id="horaires">
               <PrayerTimes />
             </section>
+            <InterventionBanner />
           </SectionBackground>
 
           <SectionSeparator variant="curve" color="rose" position="bottom" />
