@@ -13,6 +13,8 @@ import { SectionBackground } from './SectionBackground';
 import { SectionSeparator } from './SectionSeparator';
 import { LegalPages } from './LegalPages';
 import { InterventionBanner } from './InterventionBanner';
+import backgroundLight from 'figma:asset/e24de73c67279cf27f53290c20cb3ea4e31a70b6.png';
+import backgroundDark from 'figma:asset/8e763fc6c51997bb726189026bda5de1dc5e82de.png';
 
 interface AppWrapperProps {
   darkMode: boolean;
@@ -29,10 +31,12 @@ export function AppWrapper({ darkMode, setDarkMode }: AppWrapperProps) {
         <main>
           {/* HORAIRES PAR VILLE - Violet */}
           <SectionBackground variant="violet">
-            <InterventionBanner />
-            <section id="horaires">
-              <PrayerTimes />
-            </section>
+            <div style={{ backgroundImage: `url(${darkMode ? backgroundDark : backgroundLight})`, backgroundSize: 'cover' }}>
+              <InterventionBanner />
+              <section id="horaires">
+                <PrayerTimes />
+              </section>
+            </div>
           </SectionBackground>
 
           <SectionSeparator variant="curve" color="rose" position="bottom" />
