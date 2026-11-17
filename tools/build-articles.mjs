@@ -135,8 +135,7 @@ for (const f of fs.readdirSync(path.join(katexDist, 'fonts'))) {
 const SLUG2 = 'angle-de-depression-solaire';
 const md2 = fs.readFileSync(path.join(ROOT, 'tools/articles', `${SLUG2}.md`), 'utf8');
 const components2 = { ...components, img: ({ node, ...props }) => h('img', { ...props, loading: 'lazy' }) };
-const body2 = `<p class="telecharger"><a class="bouton" href="/articles/${SLUG2}.pdf">Télécharger l'article (PDF)</a></p>\n`
-  + renderToStaticMarkup(h(Markdown, { remarkPlugins: [remarkGfm, remarkMath], rehypePlugins: [rehypeRaw, rehypeKatex], components: components2 }, md2));
+const body2 = renderToStaticMarkup(h(Markdown, { remarkPlugins: [remarkGfm, remarkMath], rehypePlugins: [rehypeRaw, rehypeKatex], components: components2 }, md2));
 fs.writeFileSync(path.join(OUT, SLUG2, 'index.html'), page({
   lang: 'fr', title: 'Les avis religieux et physique de l\'angle de dépression solaire', lede: '',
   description: 'Fajr et ʿIshāʾ : le seuil de 18 degrés des astronomes de l\'Islam, la convention moderne à 15 degrés, et ce que montrent la photométrie et les observatoires.',
