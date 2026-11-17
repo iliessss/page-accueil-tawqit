@@ -42,6 +42,7 @@ const page = ({ lang, title, lede, authors, body, canonical, other, extraHead = 
 <link rel="preload" href="/interventions/fonts/literata-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/interventions/tokens.css">
 ${extraHead}<link rel="stylesheet" href="/articles/article.css">
+<script>(function(){var t=null;try{t=localStorage.getItem('tawqit-theme')}catch(e){}if(t!=='dark'&&t!=='light'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 </head>
 <body>
 <header class="bandeau">
@@ -49,6 +50,7 @@ ${extraHead}<link rel="stylesheet" href="/articles/article.css">
   <nav class="bandeau__nav">
     <a href="/#articles">${lang === 'en' ? '← All articles' : '← Tous les articles'}</a>
     ${other ? `<a href="${other.href}" hreflang="${other.lang}">${other.label}</a>` : ''}
+    <button type="button" class="bandeau__theme" id="theme" aria-label="${lang === 'en' ? 'Toggle dark mode' : 'Basculer le mode sombre'}"><svg class="lune" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><svg class="soleil" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg></button>
   </nav>
 </header>
 <main class="feuille">
@@ -64,6 +66,7 @@ ${body}
   <p class="pied__stores"><a href="${STORES.ios}" rel="noopener">App Store</a><a href="${STORES.android}" rel="noopener">Google Play</a></p>
   <p>Tawqit — ${lang === 'en' ? 'a project of the association' : 'projet porté par l\'association'} LOGARITHMES · <a href="mailto:contact@tawqit.org">contact@tawqit.org</a> · <a href="/">tawqit.org</a></p>
 </footer>
+<script>document.getElementById('theme').addEventListener('click',function(){var r=document.documentElement,t=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',t);try{localStorage.setItem('tawqit-theme',t)}catch(e){}});</script>
 </body>
 </html>
 `;
@@ -84,10 +87,10 @@ const shift = (tag) => ({ node, ...props }) => h(tag, props);
 const components = {
   h1: shift('h2'), h2: shift('h3'), h3: shift('h4'),
   img: ({ node, ...props }) => {
-    if (String(props.className || '').includes('only-dark')) return null;
     const file = path.basename(props.src);
     images.add(file);
-    return h('img', { src: `/articles/${SLUG}/img/${file}`, alt: props.alt, loading: 'lazy' });
+    const dark = String(props.className || '').includes('only-dark');
+    return h('img', { src: `/articles/${SLUG}/img/${file}`, alt: props.alt, loading: 'lazy', className: dark ? 'only-dark' : 'only-light' });
   },
   table: ({ node, ...props }) => h('div', { className: 'tableau' }, h('table', props)),
   a: ({ node, ...props }) => h('a', { ...props, rel: 'noopener' }),

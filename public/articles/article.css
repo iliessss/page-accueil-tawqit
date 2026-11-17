@@ -1,52 +1,62 @@
 /* Pages d'articles — reprend les jetons et polices du formulaire (/interventions/tokens.css) */
+:root { --fond: #E5D6BF; --feuille: #FBF6EE; --encre: #2C2A5A; --lien: #514668; --lien-survol: #2C2A5A; --repere: #7A5A2E; --trait: #E5D6BF; --creux: #F1E8DA; --avis: #F9DACA55; --ombre: rgba(44, 42, 90, .12); --bouton: #514668; --bouton-texte: #FBF6EE; --bouton-survol: #2C2A5A; color-scheme: light; }
+:root[data-theme="dark"] { --fond: #1B1A38; --feuille: #2A2852; --encre: #F1E8DA; --lien: #F9DACA; --lien-survol: #ffffff; --repere: #E5C99A; --trait: rgba(255, 255, 255, .14); --creux: #3A3768; --avis: rgba(249, 218, 202, .09); --ombre: rgba(0, 0, 0, .35); --bouton: #F9DACA; --bouton-texte: #2C2A5A; --bouton-survol: #E5D6BF; color-scheme: dark; }
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
-body { margin: 0; background: #E5D6BF; color: #2C2A5A; font-family: "Literata", Georgia, serif; font-size: 1.0625rem; line-height: 1.7; }
-a { color: #514668; text-underline-offset: 3px; }
-a:hover { color: #2C2A5A; }
+body { margin: 0; background: var(--fond); color: var(--encre); font-family: "Literata", Georgia, serif; font-size: 1.0625rem; line-height: 1.7; }
+a { color: var(--lien); text-underline-offset: 3px; }
+a:hover { color: var(--lien-survol); }
 
 .bandeau { background: #514668; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px max(20px, calc((100vw - 880px) / 2)); }
 .bandeau__logo img { display: block; height: 56px; width: auto; }
-.bandeau__nav { display: flex; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
+.bandeau__nav { display: flex; gap: 20px; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
+.bandeau__theme { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .12); color: #FBF6EE; cursor: pointer; }
+.bandeau__theme:hover { background: rgba(255, 255, 255, .22); }
+.bandeau__theme .soleil, :root[data-theme="dark"] .bandeau__theme .lune { display: none; }
+:root[data-theme="dark"] .bandeau__theme .soleil { display: block; }
+:root[data-theme="dark"] .bandeau { background: #2C2A5A; }
+.texte img.only-dark, :root[data-theme="dark"] .texte img.only-light { display: none; }
+:root[data-theme="dark"] .texte img.only-dark { display: block; }
+:root[data-theme="dark"] .texte img.page-pdf { filter: brightness(.9); }
 .bandeau__nav a { color: #FBF6EE; font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .06em; text-decoration: none; font-size: 1.05rem; }
 .bandeau__nav a:hover { text-decoration: underline; color: #fff; }
 
-.feuille { max-width: 880px; margin: 32px auto; background: #FBF6EE; border-radius: 20px; padding: clamp(22px, 5vw, 64px); box-shadow: 0 10px 40px rgba(44, 42, 90, .12); }
-.surtitre { font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .16em; color: #7A5A2E; margin: 0 0 8px; font-size: .95rem; }
+.feuille { max-width: 880px; margin: 32px auto; background: var(--feuille); border-radius: 20px; padding: clamp(22px, 5vw, 64px); box-shadow: 0 10px 40px var(--ombre); }
+.surtitre { font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .16em; color: var(--repere); margin: 0 0 8px; font-size: .95rem; }
 h1 { font-family: "Cormorant", Georgia, serif; font-weight: 600; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.12; margin: 0 0 16px; }
-.chapeau { font-size: 1.2rem; line-height: 1.55; margin: 0 0 12px; color: #2C2A5A; }
-.auteurs { font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .08em; color: #7A5A2E; margin: 0 0 28px; padding-bottom: 24px; border-bottom: 1px solid #E5D6BF; }
+.chapeau { font-size: 1.2rem; line-height: 1.55; margin: 0 0 12px; }
+.auteurs { font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .08em; color: var(--repere); margin: 0 0 28px; padding-bottom: 24px; border-bottom: 1px solid var(--trait); }
 
-.texte h2 { font-family: "Cormorant", Georgia, serif; font-weight: 600; font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.2; margin: 2.4em 0 .6em; padding-top: .8em; border-top: 1px solid #E5D6BF; }
+.texte h2 { font-family: "Cormorant", Georgia, serif; font-weight: 600; font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.2; margin: 2.4em 0 .6em; padding-top: .8em; border-top: 1px solid var(--trait); }
 .texte h3 { font-family: "Cormorant", Georgia, serif; font-weight: 600; font-size: clamp(1.3rem, 3.2vw, 1.6rem); line-height: 1.25; margin: 1.8em 0 .5em; }
 .texte h4 { font-family: "Cormorant", Georgia, serif; font-weight: 600; font-size: 1.25rem; margin: 1.5em 0 .4em; }
 .texte p { margin: 0 0 1.05em; }
 .texte ul, .texte ol { padding-left: 1.3em; margin: 0 0 1.05em; }
 .texte li { margin-bottom: .4em; }
 .texte img { display: block; max-width: 100%; height: auto; margin: 1.6em auto; border-radius: 10px; }
-.texte blockquote { margin: 1.4em 0; padding: 14px 18px; background: #F9DACA55; border-left: 3px solid #7A5A2E; border-radius: 0 10px 10px 0; }
+.texte blockquote { margin: 1.4em 0; padding: 14px 18px; background: var(--avis); border-left: 3px solid var(--repere); border-radius: 0 10px 10px 0; }
 .texte blockquote p:last-child { margin-bottom: 0; }
-.texte hr { border: 0; border-top: 1px solid #E5D6BF; margin: 2.4em 0; }
-.texte code { font-size: .9em; background: #F1E8DA; padding: .1em .35em; border-radius: 5px; }
-.texte pre { background: #F1E8DA; padding: 14px 16px; border-radius: 10px; overflow-x: auto; font-size: .9rem; line-height: 1.5; }
+.texte hr { border: 0; border-top: 1px solid var(--trait); margin: 2.4em 0; }
+.texte code { font-size: .9em; background: var(--creux); padding: .1em .35em; border-radius: 5px; }
+.texte pre { background: var(--creux); padding: 14px 16px; border-radius: 10px; overflow-x: auto; font-size: .9rem; line-height: 1.5; }
 .texte pre code { background: none; padding: 0; }
 .tableau { overflow-x: auto; margin: 1.4em 0; }
 .texte table { border-collapse: collapse; width: 100%; font-size: .97rem; }
-.texte th, .texte td { border: 1px solid #E5D6BF; padding: 8px 12px; text-align: left; vertical-align: top; }
-.texte th { background: #F1E8DA; font-weight: 600; }
+.texte th, .texte td { border: 1px solid var(--trait); padding: 8px 12px; text-align: left; vertical-align: top; }
+.texte th { background: var(--creux); font-weight: 600; }
 .katex { font-size: 1.05em; }
 .katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; margin: 1.1em 0; }
 
 .feuille--pdf .auteurs { margin-bottom: 20px; }
 .telecharger { margin: 0 0 24px; }
-.bouton { display: inline-block; background: #514668; color: #FBF6EE; text-decoration: none; padding: 12px 24px; border-radius: 999px; font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .05em; font-size: 1.1rem; }
-.bouton:hover { background: #2C2A5A; color: #fff; }
-.texte img.page-pdf { width: 100%; margin: 0 0 18px; border-radius: 6px; border: 1px solid #E5D6BF; background: #fff; }
+.bouton { display: inline-block; background: var(--bouton); color: var(--bouton-texte); text-decoration: none; padding: 12px 24px; border-radius: 999px; font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .05em; font-size: 1.1rem; }
+.bouton:hover { background: var(--bouton-survol); color: var(--bouton-texte); }
+.texte img.page-pdf { width: 100%; margin: 0 0 18px; border-radius: 6px; border: 1px solid var(--trait); background: #fff; }
 
-.pied { max-width: 880px; margin: 0 auto 40px; padding: 0 20px; text-align: center; font-size: .92rem; color: #2C2A5A; }
+.pied { max-width: 880px; margin: 0 auto 40px; padding: 0 20px; text-align: center; font-size: .92rem; color: var(--encre); }
 .pied__stores { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 0 0 14px; }
-.pied__stores a { background: #514668; color: #FBF6EE; text-decoration: none; padding: 10px 22px; border-radius: 999px; font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .05em; }
-.pied__stores a:hover { background: #2C2A5A; }
+.pied__stores a { background: var(--bouton); color: var(--bouton-texte); text-decoration: none; padding: 10px 22px; border-radius: 999px; font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .05em; }
+.pied__stores a:hover { background: var(--bouton-survol); color: var(--bouton-texte); }
 
 @media (max-width: 600px) {
   body { font-size: 1rem; }
