@@ -130,17 +130,16 @@ for (const f of fs.readdirSync(path.join(katexDist, 'fonts'))) {
   if (f.endsWith('.woff2')) fs.copyFileSync(path.join(katexDist, 'fonts', f), path.join(OUT, 'katex/fonts', f));
 }
 
-// ---------- Article 2 : l'angle de dépression solaire (PDF, pages en images) ----------
+// ---------- Article 2 : l'angle de dépression solaire ----------
+// Texte reconstruit depuis le PDF (tools/articles/*.md), figures dans public/articles/<slug>/img.
 const SLUG2 = 'angle-de-depression-solaire';
-const pagesDir = path.join(OUT, SLUG2, 'pages');
-const pages = fs.existsSync(pagesDir) ? fs.readdirSync(pagesDir).filter((f) => /\.(jpg|webp|png)$/.test(f)).sort() : [];
-if (pages.length) {
-  const body = `<p class="telecharger"><a class="bouton" href="/articles/${SLUG2}.pdf">Télécharger l'article (PDF)</a></p>\n`
-    + pages.map((f, i) => `<img class="page-pdf" src="/articles/${SLUG2}/pages/${f}" alt="Page ${i + 1} sur ${pages.length} de l'article" width="1240" height="1754"${i ? ' loading="lazy"' : ''}>`).join('\n');
-  fs.writeFileSync(path.join(OUT, SLUG2, 'index.html'), page({
-    lang: 'fr', title: 'Les avis religieux et physique de l\'angle de dépression solaire', lede: '',
-    description: 'Fajr et ʿIshāʾ : le seuil de 18 degrés des astronomes de l\'Islam, la convention moderne à 15 degrés, et ce que montrent la photométrie et les observatoires.',
-    authors: 'Iliès Haouche · Cheikh Ismaïl ar-Roubaysi', body, canonical: `/articles/${SLUG2}/`, other: null,
-  }).replace('<main class="feuille">', '<main class="feuille feuille--pdf">'));
-}
-console.log('articles générés :', SLUG, [...images].length, 'figures ;', SLUG2, pages.length, 'pages');
+const md2 = fs.readFileSync(path.join(ROOT, 'tools/articles', `${SLUG2}.md`), 'utf8');
+const components2 = { ...components, img: ({ node, ...props }) => h('img', { ...props, loading: 'lazy' }) };
+const body2 = `<p class="telecharger"><a class="bouton" href="/articles/${SLUG2}.pdf">Télécharger l'article (PDF)</a></p>\n`
+  + renderToStaticMarkup(h(Markdown, { remarkPlugins: [remarkGfm, remarkMath], rehypePlugins: [rehypeRaw, rehypeKatex], components: components2 }, md2));
+fs.writeFileSync(path.join(OUT, SLUG2, 'index.html'), page({
+  lang: 'fr', title: 'Les avis religieux et physique de l\'angle de dépression solaire', lede: '',
+  description: 'Fajr et ʿIshāʾ : le seuil de 18 degrés des astronomes de l\'Islam, la convention moderne à 15 degrés, et ce que montrent la photométrie et les observatoires.',
+  authors: 'Iliès Haouche · Cheikh Ismaïl ar-Roubaysi', body: body2, canonical: `/articles/${SLUG2}/`, other: null, extraHead: katexCss,
+}));
+console.log('articles générés :', SLUG, [...images].length, 'figures ;', SLUG2);

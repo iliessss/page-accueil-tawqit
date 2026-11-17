@@ -17,8 +17,7 @@ a:hover { color: var(--lien-survol); }
 :root[data-theme="dark"] .bandeau { background: #2C2A5A; }
 .texte img.only-dark, :root[data-theme="dark"] .texte img.only-light { display: none; }
 :root[data-theme="dark"] .texte img.only-dark { display: block; }
-:root[data-theme="dark"] .texte img.page-pdf { filter: brightness(.9); }
-.bandeau__nav a { color: #FBF6EE; font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .06em; text-decoration: none; font-size: 1.05rem; }
+:root[data-theme="dark"] .bandeau__nav a { color: #FBF6EE; font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .06em; text-decoration: none; font-size: 1.05rem; }
 .bandeau__nav a:hover { text-decoration: underline; color: #fff; }
 
 .feuille { max-width: 880px; margin: 32px auto; background: var(--feuille); border-radius: 20px; padding: clamp(22px, 5vw, 64px); box-shadow: 0 10px 40px var(--ombre); }
@@ -47,11 +46,14 @@ h1 { font-family: "Cormorant", Georgia, serif; font-weight: 600; font-size: clam
 .katex { font-size: 1.05em; }
 .katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; margin: 1.1em 0; }
 
-.feuille--pdf .auteurs { margin-bottom: 20px; }
+.texte figure { margin: 1.8em 0; }
+.texte figure img { margin: 0 auto .7em; background: #fff; padding: 8px; }
+.texte figcaption, .texte .legende { font-size: .92rem; line-height: 1.5; color: var(--encre); opacity: .85; text-align: center; margin: 0; }
+.texte .legende { margin: 1.6em 0 .6em; text-align: left; }
+.texte .legende + .tableau { margin-top: 0; }
 .telecharger { margin: 0 0 24px; }
 .bouton { display: inline-block; background: var(--bouton); color: var(--bouton-texte); text-decoration: none; padding: 12px 24px; border-radius: 999px; font-family: "Cormorant SC", "Cormorant", serif; letter-spacing: .05em; font-size: 1.1rem; }
 .bouton:hover { background: var(--bouton-survol); color: var(--bouton-texte); }
-.texte img.page-pdf { width: 100%; margin: 0 0 18px; border-radius: 6px; border: 1px solid var(--trait); background: #fff; }
 
 .pied { max-width: 880px; margin: 0 auto 40px; padding: 0 20px; text-align: center; font-size: .92rem; color: var(--encre); }
 .pied__stores { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 0 0 14px; }
