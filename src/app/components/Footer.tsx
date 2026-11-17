@@ -17,7 +17,8 @@ export function Footer({ darkMode = false }: FooterProps) {
     produit: [
       { label: t('features'), href: '#fonctionnalites' },
       { label: t('preview'), href: '#apercu' },
-      { label: t('about'), href: '#qui-sommes-nous' }
+      { label: t('about'), href: '#qui-sommes-nous' },
+      { label: t('mosqueesBannerTitle'), href: 'https://mosquees.tawqit.org', external: true }
     ],
     ressources: [
       { label: t('faq'), href: '#faq' },
@@ -77,6 +78,7 @@ export function Footer({ darkMode = false }: FooterProps) {
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    {...(link.external && { target: '_blank', rel: 'noopener noreferrer' })}
                     className="font-['adobe-devanagari_844'] text-white/70 hover:text-white transition-colors"
                   >
                     {link.label}
