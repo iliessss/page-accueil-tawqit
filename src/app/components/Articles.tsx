@@ -18,14 +18,13 @@ export function Articles({ darkMode = false }: ArticlesProps) {
       title: t('article1Title'),
       authors: 'Iliès Haouche',
       summary: t('article1Summary'),
-      href: `https://ilies-haouche.com/${language === 'en' ? 'en' : 'fr'}/projects/tawqit`,
+      href: `/articles/science-des-heures-de-priere/${language === 'en' ? 'en/' : ''}`,
     },
     {
       title: t('article2Title'),
       authors: 'Iliès Haouche · Cheikh Ismaïl ar-Roubaysi',
       summary: t('article2Summary'),
-      href: '/articles/angle-de-depression-solaire.pdf',
-      action: t('articleReadPdf'),
+      href: '/articles/angle-de-depression-solaire/',
     },
   ];
 
@@ -51,8 +50,6 @@ export function Articles({ darkMode = false }: ArticlesProps) {
             <motion.a
               key={article.href}
               href={article.href}
-              target="_blank"
-              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
