@@ -29,10 +29,10 @@ export function AppWrapper({ darkMode, setDarkMode }: AppWrapperProps) {
         <main>
           {/* HORAIRES PAR VILLE - Violet */}
           <SectionBackground variant="violet">
+            <InterventionBanner />
             <section id="horaires">
               <PrayerTimes />
             </section>
-            <InterventionBanner />
           </SectionBackground>
 
           <SectionSeparator variant="curve" color="rose" position="bottom" />
