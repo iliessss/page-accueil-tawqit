@@ -13,7 +13,6 @@
 <link rel="preload" href="/interventions/fonts/literata-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/interventions/tokens.css">
 <link rel="stylesheet" href="/interventions/style.css">
-<script>document.documentElement.classList.add('js-ready');</script>
 <noscript><style>.sans-js-masque{display:none !important}</style></noscript>
 </head>
 <body>
@@ -26,11 +25,12 @@
   <img class="ouverture__logo" src="/interventions/img/logo-tawqit-clair.png" width="414" height="360" alt="Tawqit">
   <p class="surtitre ouverture__surtitre">Mosquées · Associations · Instituts</p>
   <h1 class="ouverture__titre" id="titre-page">Inviter Cheikh Ismaïl dans votre mosquée</h1>
-  <p class="ouverture__chapeau">Cheikh Ismaïl ar-Roubaysi, imam et co-fondateur de l'application Tawqit, intervient sur les horaires de prière : le fajr, l'icha, et la manière dont on les calcule.</p>
+  <p class="ouverture__chapeau">Cheikh Ismaïl ar-Roubaysi, imam et co-fondateur de l'application Tawqit, intervient pour aider à comprendre la problématique des horaires de prière en France et la science du tawqit.</p>
+  <p class="ouverture__reserve">Pour les responsables de mosquées, d'associations et d'instituts, ou leurs représentants mandatés.</p>
   <ul class="reperes">
-    <li><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4.5" y="4.5" width="15" height="15"></rect><rect x="4.5" y="4.5" width="15" height="15" transform="rotate(45 12 12)"></rect></svg>Frais pris en charge par la structure</li>
-    <li><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4.5" y="4.5" width="15" height="15"></rect><rect x="4.5" y="4.5" width="15" height="15" transform="rotate(45 12 12)"></rect></svg>Don de montant libre</li>
-    <li><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4.5" y="4.5" width="15" height="15"></rect><rect x="4.5" y="4.5" width="15" height="15" transform="rotate(45 12 12)"></rect></svg>L'envoi ne réserve aucune date</li>
+    <li><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4.5" y="4.5" width="15" height="15"></rect><rect x="4.5" y="4.5" width="15" height="15" transform="rotate(45 12 12)"></rect></svg>Conférence, cours ou séminaire</li>
+    <li><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4.5" y="4.5" width="15" height="15"></rect><rect x="4.5" y="4.5" width="15" height="15" transform="rotate(45 12 12)"></rect></svg>Format et sujet définis ensemble</li>
+    <li><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4.5" y="4.5" width="15" height="15"></rect><rect x="4.5" y="4.5" width="15" height="15" transform="rotate(45 12 12)"></rect></svg>Réponse par courriel après étude</li>
   </ul>
 </header>
 
@@ -194,19 +194,10 @@
               <label class="opt"><input type="radio" name="format" value="conference" required><span>Une conférence</span></label>
               <label class="opt"><input type="radio" name="format" value="conference_qr"><span>Une conférence suivie de questions-réponses</span></label>
               <label class="opt"><input type="radio" name="format" value="cours"><span>Un cours ou un séminaire sur plusieurs séances</span></label>
+              <label class="opt"><input type="radio" name="format" value="regroupement"><span>Une intervention auprès d'une fédération, d'un conseil ou d'un autre regroupement (départemental, local ou autre)</span></label>
               <label class="opt"><input type="radio" name="format" value="a_definir"><span>À définir ensemble</span></label>
             </div>
             <p class="erreur" id="e-format" hidden></p>
-          </fieldset>
-          <fieldset class="groupe" id="g-public" aria-describedby="e-public">
-            <legend class="q">Public attendu, même approximativement <span class="req" aria-hidden="true">*</span></legend>
-            <div class="options options--grille">
-              <label class="opt"><input type="radio" name="public" value="moins_50" required><span>Moins de 50 personnes</span></label>
-              <label class="opt"><input type="radio" name="public" value="50_150"><span>De 50 à 150</span></label>
-              <label class="opt"><input type="radio" name="public" value="150_300"><span>De 151 à 300</span></label>
-              <label class="opt"><input type="radio" name="public" value="plus_300"><span>Plus de 300</span></label>
-            </div>
-            <p class="erreur" id="e-public" hidden></p>
           </fieldset>
 
           <div class="voeux">
@@ -331,39 +322,7 @@
       <fieldset class="etape" id="etape-4">
         <legend class="etape__legende"><span class="etape__n">Étape 4</span><h2 class="etape__titre" tabindex="-1">Les conditions d'accueil</h2></legend>
         <div class="etape__champs">
-          <div class="repli">
-            <details class="plus">
-              <summary>Lire le détail des conditions</summary>
-              <div class="plus__corps plus__corps--texte">
-                <p>Tawqit est un projet associatif. L'application est gratuite et sans publicité. Une intervention mobilise du temps et des moyens : nous demandons donc à la structure qui invite de s'engager sur les points suivants.</p>
-                <ul class="conditions-liste">
-                  <li>
-                    <h3 class="titre-3">Les frais de déplacement</h3>
-                    <p>La structure prend en charge le trajet aller et retour de l'intervenant.</p>
-                  </li>
-                  <li>
-                    <h3 class="titre-3">La restauration</h3>
-                    <p>La structure prend en charge les repas sur place.</p>
-                  </li>
-                  <li>
-                    <h3 class="titre-3">L'hébergement, selon la distance</h3>
-                    <p>Lorsque la distance ou le programme ne permettent pas l'aller et retour dans la journée, la structure prend en charge l'hébergement. Sa durée et ses modalités sont convenues par écrit avant toute confirmation.</p>
-                  </li>
-                  <li>
-                    <h3 class="titre-3">Un don au projet Tawqit</h3>
-                    <p>La structure contribue au projet par un don. Son montant est libre : chaque structure le fixe selon ses moyens.</p>
-                  </li>
-                  <li>
-                    <h3 class="titre-3">Une collecte sur place, si vous l'acceptez</h3>
-                    <p>Si la structure en est d'accord, une collecte au profit du projet est proposée aux personnes présentes le jour de l'intervention. Ce point est facultatif, et distinct du don de la structure.</p>
-                  </li>
-                </ul>
-                <p class="aide">Aucun règlement n'est demandé lors du dépôt de la demande. Les modalités de versement sont convenues après accord.</p>
-                <h3 class="titre-3">À quoi sert cette participation</h3>
-                <p>Elle finance la suite du projet : l'entretien des vidéos explicatives, des films et des séries que nous mettons à disposition ; la maintenance de l'application et le suivi de ses utilisateurs avec les développeurs ; et le temps que Cheikh Ismaïl consacre au projet.</p>
-              </div>
-            </details>
-          </div>
+          <p class="intro-conditions">Tawqit est un projet associatif ; l'application est gratuite et sans publicité. La structure qui invite prend en charge les frais de l'intervenant et soutient le projet par un don, dont elle fixe librement le montant.</p>
 
           <div class="f" id="c-accepte_frais">
             <label class="opt"><input type="checkbox" name="accepte_frais" value="oui" required aria-describedby="e-accepte_frais"><span>La structure prend en charge les frais de déplacement et de restauration de l'intervenant, et son hébergement si la distance ou le programme le demandent. <span class="req" aria-hidden="true">*</span></span></label>
@@ -391,6 +350,7 @@
           <div class="envoi">
             <div class="f" id="c-accepte_donnees">
               <label class="opt"><input type="checkbox" name="accepte_donnees" value="oui" required aria-describedby="e-accepte_donnees"><span>J'accepte que l'association LOGARITHMES utilise les informations de ce formulaire, y compris ma fonction dans la structure, pour étudier, organiser et suivre cette demande d'intervention. <span class="req" aria-hidden="true">*</span></span></label>
+              <a class="lien-mention" id="lien-mention" href="#donnees">Lire la mention sur vos données</a>
               <p class="erreur" id="e-accepte_donnees" hidden></p>
             </div>
             <div class="f">
@@ -416,7 +376,7 @@
   <section class="apres" id="apres" aria-labelledby="t-apres" hidden>
     <svg class="apres__ornement" aria-hidden="true" width="104" height="122" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="11" r="7"></circle><path d="M49 31 L60 18 L71 31"></path><circle cx="60" cy="83" r="52"></circle><circle cx="60" cy="83" r="45" stroke-dasharray="1 5.28"></circle><circle cx="60" cy="83" r="37"></circle><circle cx="60" cy="71" r="22"></circle><path d="M21 105 L99 61"></path><circle cx="60" cy="83" r="3" fill="currentColor"></circle></svg>
     <h2 class="apres__titre" id="t-apres" tabindex="-1">Votre demande est bien arrivée</h2>
-    <p class="apres__texte">Merci. Votre demande est enregistrée. Nous l'étudions avec Cheikh Ismaïl et nous vous répondons à l'adresse <strong id="apres-courriel"></strong>. Aucune date n'est confirmée à ce stade : n'annoncez pas encore l'événement.</p>
+    <p class="apres__texte">Merci. Votre demande est enregistrée. Nous l'étudions avec Cheikh Ismaïl et nous reviendrons vers vous par courriel, incha'Allah. Adresse indiquée : <strong id="apres-courriel"></strong>. Aucune date n'est confirmée à ce stade : n'annoncez pas encore l'événement.</p>
     <p class="apres__reference">Référence de votre demande : <strong id="apres-reference"></strong></p>
     <p class="apres__lien"><a href="https://tawqit.org" rel="noopener">Découvrir l'application Tawqit</a></p>
   </section>
@@ -429,22 +389,22 @@
     <div class="pied__corps">
       <ol class="deroule">
         <li>
-          <h3 class="titre-3">Vous déposez la demande.</h3>
+          <p class="titre-3">Vous déposez la demande.</p>
           <p>Votre structure, vos vœux de date, le format souhaité.</p>
         </li>
         <li>
-          <h3 class="titre-3">Nous l'étudions.</h3>
+          <p class="titre-3">Nous l'étudions.</p>
           <p>Chaque demande est lue avec Cheikh Ismaïl, selon son agenda et la distance.</p>
         </li>
         <li>
-          <h3 class="titre-3">Nous vous répondons par courriel.</h3>
+          <p class="titre-3">Nous vous répondons par courriel.</p>
           <p>Pour vous dire si l'intervention est possible et, le cas échéant, vous proposer une date.</p>
         </li>
       </ol>
       <p>Déposer une demande ne confirme aucune date. L'intervention est confirmée après accord écrit de votre structure et de Tawqit sur la date et les conditions d'accueil.</p>
     </div>
   </details>
-  <details class="pied__repli">
+  <details class="pied__repli" id="donnees">
     <summary>Vos données : qui les lit, combien de temps, vos droits</summary>
     <div class="pied__corps">
       <p>Le responsable du traitement est l'association LOGARITHMES, qui porte le projet Tawqit, joignable à contact@tawqit.org. Vos informations servent à étudier, organiser et suivre votre demande d'intervention, avec votre accord. Les champs marqués d'un astérisque sont nécessaires ; les autres sont facultatifs. Elles sont lues par l'équipe Tawqit et hébergées par Google, prestataire technique de l'association ; elles ne sont ni vendues ni cédées. Elles sont conservées douze mois après la clôture de votre demande, puis supprimées. Si vous l'avez accepté, votre adresse sert aussi à vous présenter par courriel les offres de Tawqit destinées aux mosquées ; vous pouvez retirer cet accord à tout moment. En écrivant à <a href="mailto:contact@tawqit.org">contact@tawqit.org</a>, vous pouvez consulter, corriger ou faire supprimer vos informations, en limiter l'usage ou retirer votre accord. Vous pouvez aussi adresser une réclamation à la CNIL.</p>

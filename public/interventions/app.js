@@ -1,7 +1,9 @@
 'use strict';
 
+/* Adresse du script d'enregistrement : à remplacer par l'URL /exec au branchement */
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyFI53PCO7fsarMzTwdORCX3yMXSWcFJfkaZN-yAbJmUoRmzw1fTxjZ07I6nGGD14dI5A/exec';
+
 /* Réglages à relire avant la mise en ligne */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwX4PV451tK5U4wniaVaJJwxGIRniymyfPmt7YbGJ6nAM0YGBhCVhFcMVBCWei27RQI/exec';
 const BLOQUER_PARTICULIER = true;
 const DELAI_MIN_JOURS = 1;
 const DUREE_MIN_MS = 3000;
@@ -19,6 +21,7 @@ const MSG = {
   recapUn: 'Il manque 1 information. Le premier champ à compléter est signalé ci-dessous.',
   recapPlusieurs: 'Il manque {n} informations. Le premier champ à compléter est signalé ci-dessous.',
   echec: "L'envoi n'a pas pu être confirmé. Vos réponses restent sur cette page. Si vous avez reçu un accusé de réception par courriel, votre demande est enregistrée. Sinon, réessayez dans un instant ou écrivez-nous à contact@tawqit.org.",
+  conflit: 'Une première version de votre demande est déjà enregistrée sous la référence {reference}. Pour la corriger, écrivez à contact@tawqit.org en rappelant cette référence.',
   envoi: 'Envoi en cours…',
   lienCopie: 'Lien copié.'
 };
@@ -27,8 +30,7 @@ const MESSAGES_CODE = { vide: MSG.vide, courriel: MSG.courriel, telephone: MSG.t
 /* Valeurs admises (identiques à backend/Code.gs) */
 const TYPES = ['mosquee', 'institut', 'association', 'organisation', 'particulier'];
 const FONCTIONS = ['president', 'bureau', 'imam', 'direction', 'mandate', 'autre'];
-const FORMATS = ['conference', 'conference_qr', 'cours', 'a_definir'];
-const PUBLICS = ['moins_50', '50_150', '150_300', 'plus_300'];
+const FORMATS = ['conference', 'conference_qr', 'cours', 'regroupement', 'a_definir'];
 const EQUIPEMENTS = ['femmes', 'sono', 'ecran'];
 const OUI_NON = ['oui', 'non', 'a_discuter'];
 const MOMENTS = ['matin', 'apres_midi', 'soiree', 'vendredi', 'week_end'];
@@ -38,7 +40,7 @@ const ORDRE = [
   'type_demandeur',
   'structure_nom', 'ville', 'code_postal', 'pays',
   'nom_prenom', 'fonction', 'fonction_autre', 'courriel', 'telephone', 'certifie_habilite',
-  'format', 'public',
+  'format',
   'voeu1_date', 'voeu1_moment', 'voeu2_date', 'voeu2_moment', 'voeu3_date', 'voeu3_moment',
   'accepte_frais', 'accepte_don', 'collecte', 'accepte_donnees'
 ];
@@ -47,7 +49,7 @@ const ETAPES = 4;
 const ETAPE_DE = {
   type_demandeur: 1, structure_nom: 1, ville: 1, code_postal: 1, pays: 1,
   nom_prenom: 2, fonction: 2, fonction_autre: 2, courriel: 2, telephone: 2, certifie_habilite: 2,
-  format: 3, public: 3,
+  format: 3,
   voeu1_date: 3, voeu1_moment: 3, voeu2_date: 3, voeu2_moment: 3, voeu3_date: 3, voeu3_moment: 3,
   accepte_frais: 4, accepte_don: 4, collecte: 4, accepte_donnees: 4
 };
@@ -93,6 +95,9 @@ function empreinteDe(v) {
 
 /* ---------- Validation (mêmes règles que validerDemande_ dans backend/Code.gs) ---------- */
 const vide = s => String(s == null ? '' : s).trim() === '';
+/* Même contrôle que le serveur : forme, caractères refusés, longueur maximale */
+const COURRIEL_MAX = 254;
+const courrielValide = c => c.length <= COURRIEL_MAX && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(c) && !/[\r\n,;<>]/.test(c);
 
 function valider(v) {
   const e = {};
@@ -106,7 +111,7 @@ function valider(v) {
 
   const courriel = String(v.courriel || '').trim();
   if (courriel === '') e.courriel = 'vide';
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(courriel)) e.courriel = 'courriel';
+  else if (!courrielValide(courriel)) e.courriel = 'courriel';
 
   const tel = String(v.telephone || '').trim();
   if (tel === '') e.telephone = 'vide';
@@ -117,7 +122,6 @@ function valider(v) {
 
   if (v.certifie_habilite !== 'oui') e.certifie_habilite = 'vide';
   dans('format', FORMATS);
-  dans('public', PUBLICS);
   if (v.accepte_frais !== 'oui') e.accepte_frais = 'vide';
   if (v.accepte_don !== 'oui') e.accepte_don = 'vide';
   dans('collecte', OUI_NON);
@@ -219,7 +223,20 @@ function identifiantEnvoi() {
 let identifiantMemoire = nouvelIdentifiant();
 function renouvelerIdentifiant() {
   identifiantMemoire = nouvelIdentifiant();
+  envoiTente = false;
   try { sessionStorage.removeItem(CLE_IDENTIFIANT); } catch (err) { /* sans effet */ }
+}
+/* Un envoi déjà tenté (identifiant émis, y compris avant un rechargement de l'onglet) peut être enregistré côté serveur :
+   la page ne le bloque plus sur la date, le serveur reconnaît l'identifiant et tranche (même référence, conflit ou date passée). */
+let envoiTente = false;
+function dejaTente() {
+  if (envoiTente) return true;
+  try { return Boolean(sessionStorage.getItem(CLE_IDENTIFIANT)); } catch (err) { return false; }
+}
+function erreursBloquantes(v) {
+  const e = valider(v);
+  if (dejaTente()) Object.keys(e).forEach(n => { if (e[n] === 'date_passee') delete e[n]; });
+  return e;
 }
 
 /* ---------- Particulier, fonction « Autre » ---------- */
@@ -264,6 +281,17 @@ function effacer(nom) {
   if (p) { p.textContent = ''; p.hidden = true; }
   elementsDe(nom).forEach(el => el.removeAttribute('aria-invalid'));
 }
+/* À la saisie, une erreur affichée n'est retirée que si le champ est devenu valide ; les champs liés (vœux) sont revus ensemble */
+function revaliderMarques() {
+  const marques = ORDRE.filter(n => { const p = document.getElementById('e-' + n); return p && !p.hidden; });
+  if (!marques.length) return;
+  const erreurs = erreursBloquantes(lireValeurs());
+  marques.forEach(n => {
+    if (!erreurs[n]) { effacer(n); return; }
+    const p = document.getElementById('e-' + n);
+    if (p.textContent !== (MESSAGES_CODE[erreurs[n]] || MSG.vide)) marquer(n, erreurs[n]);
+  });
+}
 function effacerErreurs() {
   ORDRE.forEach(effacer);
   recap.hidden = true;
@@ -271,12 +299,7 @@ function effacerErreurs() {
   erreurEnvoi.hidden = true;
   erreurEnvoi.textContent = '';
 }
-function afficherErreurs(erreurs) {
-  effacerErreurs();
-  const noms = ORDRE.filter(n => erreurs[n]);
-  const horsOrdre = Object.keys(erreurs).filter(n => ORDRE.indexOf(n) < 0);
-  if (!noms.length) { afficherEchec(); return; }
-  noms.forEach(n => marquer(n, erreurs[n]));
+function rendreRecap(noms) {
   recapTexte.textContent = noms.length === 1 ? MSG.recapUn : MSG.recapPlusieurs.replace('{n}', noms.length);
   recapListe.textContent = '';
   noms.forEach(n => {
@@ -290,6 +313,21 @@ function afficherErreurs(erreurs) {
     recapListe.appendChild(li);
   });
   recap.hidden = false;
+}
+/* Le bandeau suit les champs : il se met à jour à chaque correction et disparaît quand il n'en reste aucune */
+function majRecap() {
+  if (recap.hidden) return;
+  const noms = ORDRE.filter(n => { const p = document.getElementById('e-' + n); return p && !p.hidden; });
+  if (!noms.length) { recap.hidden = true; recapListe.textContent = ''; return; }
+  rendreRecap(noms);
+}
+function afficherErreurs(erreurs) {
+  effacerErreurs();
+  const noms = ORDRE.filter(n => erreurs[n]);
+  const horsOrdre = Object.keys(erreurs).filter(n => ORDRE.indexOf(n) < 0);
+  if (!noms.length) { afficherEchec(); return; }
+  noms.forEach(n => marquer(n, erreurs[n]));
+  rendreRecap(noms);
   if (horsOrdre.length) afficherEchec();
   /* Chaque champ en erreur dans un repli fermé l'ouvre ; l'étape du premier est affichée et le focus y est porté */
   noms.forEach(ouvrirRepli);
@@ -308,8 +346,10 @@ function allerAuChamp(nom) {
   cible.focus();
   cible.scrollIntoView({ block: 'center' });
 }
-function afficherEchec() {
-  const [avant, apres] = MSG.echec.split('contact@tawqit.org');
+function afficherEchec() { afficherMessageEnvoi(MSG.echec); }
+function afficherConflit(reference) { afficherMessageEnvoi(MSG.conflit.replace('{reference}', reference)); }
+function afficherMessageEnvoi(texte) {
+  const [avant, apres] = texte.split('contact@tawqit.org');
   erreurEnvoi.textContent = '';
   erreurEnvoi.appendChild(document.createTextNode(avant));
   const a = document.createElement('a');
@@ -323,18 +363,41 @@ function afficherEchec() {
 /* ---------- Envoi ---------- */
 const pause = ms => new Promise(r => setTimeout(r, ms));
 
+/* Une adresse d'essai (localhost) ne doit jamais recevoir une demande venue d'une page publiée ailleurs */
+const HOTES_LOCAUX = ['', 'localhost', '127.0.0.1', '[::1]'];
+function endpointAtteignable() {
+  let hote = '';
+  try { hote = new URL(ENDPOINT, location.href).hostname; } catch (err) { return false; }
+  return HOTES_LOCAUX.indexOf(hote) < 0 || HOTES_LOCAUX.indexOf(location.hostname) >= 0;
+}
+
+/* Pendant l'envoi, champs et boutons sont gelés ; seuls ceux qui ne l'étaient pas déjà sont rétablis */
+let geles = [];
+function geler() {
+  geles = Array.prototype.filter.call(form.elements, el => !el.disabled);
+  geles.forEach(el => { el.disabled = true; });
+  form.setAttribute('aria-busy', 'true');
+}
+function degeler() {
+  geles.forEach(el => { el.disabled = false; });
+  geles = [];
+  form.removeAttribute('aria-busy');
+}
+
 async function envoyer(valeurs) {
   enCours = true;
   const libelle = boutonEnvoi.textContent;
-  boutonEnvoi.disabled = true;
+  geler();
   boutonEnvoi.textContent = MSG.envoi;
   boutonEnvoi.setAttribute('aria-busy', 'true');
   const controle = new AbortController();
   let minuteur = null;
   try {
+    if (!endpointAtteignable()) throw new Error('adresse d\'essai');
     const attente = DUREE_MIN_MS - (Date.now() - ouvertA);
     if (attente > 0) await pause(attente);
     const corps = Object.assign({}, valeurs, { duree_s: Math.round((Date.now() - ouvertA) / 1000), id_envoi: identifiantEnvoi(), empreinte: empreinteDe(valeurs) });
+    envoiTente = true;
     minuteur = setTimeout(() => controle.abort(), DELAI_REPONSE_MS);
     const rep = await fetch(ENDPOINT, {
       method: 'POST',
@@ -343,20 +406,26 @@ async function envoyer(valeurs) {
       signal: controle.signal
     });
     const data = await rep.json();
+    degeler();
     if (data && data.ok === true && data.reference) {
       renouvelerIdentifiant();
       afficherApres(valeurs.courriel, data.reference);
+    } else if (data && data.ok === false && (data.code === 'conflit' || data.erreur === 'conflit') && data.reference) {
+      afficherConflit(String(data.reference));
+      boutonEnvoi.focus({ preventScroll: true });
     } else if (data && data.erreurs && Object.keys(data.erreurs).length) {
       afficherErreurs(data.erreurs);
     } else {
       afficherEchec();
     }
   } catch (err) {
+    degeler();
     afficherEchec();
+    boutonEnvoi.focus({ preventScroll: true });
   } finally {
     clearTimeout(minuteur);
     enCours = false;
-    boutonEnvoi.disabled = false;
+    degeler();
     boutonEnvoi.textContent = libelle;
     boutonEnvoi.removeAttribute('aria-busy');
   }
@@ -380,7 +449,7 @@ form.addEventListener('submit', ev => {
   if (BLOQUER_PARTICULIER && v.type_demandeur === 'particulier') return;
   if (etapeCourante < ETAPES) { continuer(); return; }
   majDateMin();
-  const erreurs = valider(v);
+  const erreurs = erreursBloquantes(v);
   if (Object.keys(erreurs).length) { afficherErreurs(erreurs); return; }
   effacerErreurs();
   envoyer(v);
@@ -426,7 +495,7 @@ function afficherEtape(n, avecFocus) {
 }
 function continuer() {
   majDateMin();
-  const erreurs = valider(lireValeurs());
+  const erreurs = erreursBloquantes(lireValeurs());
   const ici = {};
   Object.keys(erreurs).forEach(n => { if (ETAPE_DE[n] === etapeCourante) ici[n] = erreurs[n]; });
   if (Object.keys(ici).length) { afficherErreurs(ici); return; }
@@ -437,7 +506,12 @@ form.addEventListener('click', ev => {
   const bouton = ev.target && ev.target.closest ? ev.target.closest('[data-etape]') : null;
   if (!bouton) return;
   if (bouton.dataset.etape === 'suivant') continuer();
-  else { effacerErreurs(); afficherEtape(Math.max(1, etapeCourante - 1), true); }
+  else {
+    /* Revenir en arrière ne vaut pas correction : seules les marques des champs devenus valides tombent */
+    revaliderMarques();
+    majRecap();
+    afficherEtape(Math.max(1, etapeCourante - 1), true);
+  }
 });
 
 /* ---------- Démarrage ---------- */
@@ -449,14 +523,28 @@ appliquerType();
 appliquerFonction();
 form.addEventListener('input', ev => {
   const nom = ev.target && ev.target.name;
-  if (nom) effacer(nom);
+  if (nom) revaliderMarques();
+  majRecap();
   sauver();
 });
 form.addEventListener('change', ev => {
   const nom = ev.target && ev.target.name;
-  if (nom) effacer(nom);
   if (nom === 'type_demandeur') appliquerType();
   if (nom === 'fonction') appliquerFonction();
+  if (nom) revaliderMarques();
+  majRecap();
   sauver();
 });
+
+/* Lien « Lire la mention sur vos données » : ouvre le repli du pied et y fait défiler (sans JS, l'ancre seule mène au pied) */
+document.getElementById('lien-mention').addEventListener('click', ev => {
+  ev.preventDefault();
+  const repli = document.getElementById('donnees');
+  repli.open = true;
+  repli.scrollIntoView({ block: 'start' });
+  repli.querySelector('summary').focus({ preventScroll: true });
+});
+
 afficherEtape(1, false);
+/* Posé en dernier : si ce script ne se charge pas ou échoue, la page reste le formulaire complet, lisible sans JS */
+document.documentElement.classList.add('js-ready');

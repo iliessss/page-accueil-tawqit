@@ -75,7 +75,7 @@
   --police-texte: "Literata", "Literata Repli", Georgia, "Times New Roman", serif;
 
   /* Échelle : corps, petit, trois titres (h1 >= 7x le corps sur grand écran) */
-  --t-corps: clamp(1.0625rem, 1.02rem + 0.15vw, 1.125rem);
+  --t-corps: 1.0625rem;
   --t-petit: 0.9375rem;
   --t-capitales: 1.0625rem;
   --t-h1: clamp(3.5rem, 2rem + 6.1vw, 7.5rem);
@@ -119,7 +119,8 @@
   /* Variante épurée : page, carte, champs, boutons */
   --carte-max: 760px;
   --carte-rayon: 10px;
-  --carte-pad: clamp(1.375rem, 5vw, 3rem);
+  --carte-pad: clamp(1.5rem, 5vw, 3rem);
+  --colonne-pad-x: 1.25rem;
   --colonne-pad-haut: 2.5rem;
   --colonne-pad-bas: 3.5rem;
   --colonne-gap: 2.25rem;
@@ -128,16 +129,93 @@
   --fond-bas: #E5D6BF; /* bord bas du fond officiel, crème des pictogrammes */
   --zellige-tuile: 240px;
   --logo-h: 7.5rem;
-  --champ-h: 3rem;
-  --bouton-h: 3.25rem;
+  --champ-h: 3rem; /* 48 px */
+  --bouton-h: 3.25rem; /* 52 px */
   --rayon-champ: 6px;
   --gap-champs: 1.375rem;
   --gap-options: 0.625rem;
   --t-saisie: 1.0625rem;
   --t-libelle: 1rem;
-  --t-etape: 2.375rem;
+  --t-etape: 2.375rem; /* 38 px */
   --t-h1-epure: clamp(2.5rem, 7vw, 4rem);
   --barre-progression: 4px;
+  --carte-gap: 2rem;
+  --ombre-carte-etroite: 0 20px 48px rgba(44, 42, 90, 0.22);
+  --note-remonte: -1.25rem; /* la note des astérisques se range sous la progression */
+  --note-descend: -0.5rem;
+  --etape-gap: 1.75rem;
+  --gap-legende: 0.75rem;
+  --gap-opt: 0.75rem;
+  --gap-ouverture: 1.125rem;
+  --gap-pied: 0.75rem;
+  --gap-actions-etroit: 0.375rem;
+  --gap-progression-etroit: 0.375rem;
+  --plus-pad-bas: 1.5rem;
+  --gap-plus-dates: 1.125rem;
+  --gap-plus-sujet: 1.5rem;
+  --h1-max: 620px;
+  --lh-h1-epure: 0.98;
+  --suivi-progression: 0.08em;
+  --suivi-reference: 0.1em;
+  --lh-pied: 1.55;
+  --cible-pied: 2.75rem;
+  --focus-epaisseur: 2px;
+  --focus-decalage: 2px;
+  --opt-min-grille: 8.75rem;
+  --opt-min-court: 8.125rem;
+  --base-ville: 13.75rem;
+  --base-cp: 7.5rem;
+  --base-pays: 10rem;
+  --base-courriel: 16.25rem;
+  --base-telephone: 11.25rem;
+  --base-voeu-date: 12.5rem;
+  --base-voeu-moment: 15rem;
+  --t-avis-titre: 1.5rem;
+  --t-avis-texte: 1rem;
+  --avis-pad: 1.25rem 1.375rem;
+  --apres-pad: 1.5rem;
+  --apres-texte-max: 32.5rem;
+  --t-apres: 2.5rem; /* 40 px */
+  /* Mesures reprises de style.css, valeurs inchangées */
+  --chapeau-max: 35rem;
+  --lh-chapeau: 1.55;
+  --gap-reperes-x: 1.375rem;
+  --lh-reperes: 1.4;
+  --lh-titre-etape: 1.05;
+  --suivi-titre-etape: -0.015em;
+  --etape-gap-vous: 1.375rem;
+  --etape-gap-conditions: 1.5rem;
+  --legende-surcroit: 0.375rem;
+  --actions-vous-haut: 0.375rem;
+  --champ-pad: 0.625rem 0.875rem;
+  --lh-champ: 1.4;
+  --lh-libelle: 1.35;
+  --textarea-h: 6rem;
+  --fleche-x1: 1.25rem;
+  --fleche-x2: 0.9rem;
+  --fleche-taille: 0.35rem;
+  --select-pad-droit: 2.5rem;
+  --barre-erreur: 4px;
+  --aide-max: 36rem;
+  --erreur-pad: 0.35rem 0.6rem;
+  --opt-pad: 0.75rem 0.875rem;
+  --case-taille: 1.25rem;
+  --case-decalage: 0.125rem;
+  --lh-resume: 1.3;
+  --signe-repli: 1.625rem;
+  --carte-min-h: 35rem;
+  --b1-pad-x: 1.75rem;
+  --b2-pad-x: 0.5rem;
+  --soulignement-bouton: 4px;
+  --soulignement-lien: 0.2em;
+  --enfonce: 1px;
+  --envoi-pad-haut: 1.5rem;
+  --envoi-actions-haut: 0.875rem;
+  --avis-gap: 0.625rem;
+  --lh-avis: 1.55;
+  --recap-barre: 6px;
+  --recap-liste-pad: 1.1rem;
+  --recap-lien-pad: 0.3rem;
 
   /* Mouvement */
   --d-140: 140ms;
@@ -181,11 +259,17 @@
 @media (max-width: 599px) {
   :root {
     --colonne-pad-haut: 1.75rem;
+    --colonne-pad-x: 1rem;
     --colonne-pad-bas: 2rem;
     --colonne-gap: 1.5rem;
     --logo-h: 5rem;
     --t-etape: 2rem;
+    --t-apres: 2rem;
     --t-h1-epure: 2.125rem;
-    --carte-pad: 1.125rem;
+    --lh-h1-epure: 1;
+    --gap-ouverture: 0.75rem;
+    --carte-pad: 1.375rem 1.125rem 1.5rem;
+    --ombre-carte: var(--ombre-carte-etroite);
+    --carte-gap: 1.625rem;
   }
 }
