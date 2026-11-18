@@ -260,6 +260,13 @@ a:hover { color: var(--navy); }
   .champs-ligne--coord { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
   .champs-ligne--voeu { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
 }
+/* Ville / code postal / pays : les champs restent alignés même quand un libellé passe sur deux lignes */
+@media (min-width: 640px) {
+  @supports (grid-template-rows: subgrid) {
+    .champs-ligne--ville > .f { display: grid; grid-template-rows: subgrid; grid-row: span 3; row-gap: var(--gap-1); }
+    .champs-ligne--ville > .f > label { align-self: end; }
+  }
+}
 
 /* Options : rangée entière cliquable */
 .options { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-options); }
