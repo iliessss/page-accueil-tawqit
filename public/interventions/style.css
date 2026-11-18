@@ -255,8 +255,10 @@ a:hover { color: var(--navy); }
 .champs-ligne--voeu > :nth-child(2) { flex: 1 1 var(--base-voeu-moment); }
 
 /* Ville, code postal, pays : les trois champs restent sur une même ligne d'appui, même quand un libellé passe sur deux lignes ou qu'une erreur s'affiche sous l'un d'eux */
+/* En dessous du seuil de la grille, quand les trois champs tiennent quand même sur une ligne, ils s'alignent par le bas */
+.champs-ligne--ville > .f { justify-content: flex-end; }
 @supports (grid-template-rows: subgrid) {
-  @media (min-width: 700px) {
+  @media (min-width: 640px) {
     .champs-ligne--ville {
       display: grid;
       grid-template-columns: minmax(0, 3fr) minmax(0, 1.5fr) minmax(0, 2fr);
